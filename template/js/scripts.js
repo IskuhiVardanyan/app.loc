@@ -61,20 +61,35 @@ window.addEventListener('load', function(event) {
 						}
 					} else {
 						item.classList.add('err');
-						if (index == 0) {
-							document.querySelector('.error_1').innerHTML = "* The length of first " +
-								"name must be more than 2 symbols";
-						} else if (index == 1) {
-							document.querySelector('.error_2').innerHTML = "* The length of last name " +
-								"must be more than 4 symbols";
+						if(value == 0){
+							if (index == 0) {
+								document.querySelector('.error_1').innerHTML = "* First name field is required";
+							} else if (index == 1) {
+								document.querySelector('.error_2').innerHTML = "* Last name field is required";
 
-						} else if (index == 2) {
-							document.querySelector('.error_3').innerHTML = "* Incorrect email";
+							} else if (index == 2) {
+								document.querySelector('.error_3').innerHTML = "* Email field is required";
 
-						} else if (index == 3) {
-							document.querySelector('.error_4').innerHTML = "* The length of password " +
-								"must be more than 5 symbols";
+							} else if (index == 3) {
+								document.querySelector('.error_4').innerHTML = "* Password field is required";
+							}
+						}else{
+							if (index == 0) {
+								document.querySelector('.error_1').innerHTML = "* First name must be 3-16 " +
+									"characters in length";
+							} else if (index == 1) {
+								document.querySelector('.error_2').innerHTML = "* Last name must be 5-16 " +
+									"characters in length";
+
+							} else if (index == 2) {
+								document.querySelector('.error_3').innerHTML = "* Incorrect email";
+
+							} else if (index == 3) {
+								document.querySelector('.error_4').innerHTML = "* Password must be 6-16 " +
+									"characters in length";
+							}
 						}
+
 						isError = true;
 						event.preventDefault();
 
@@ -118,11 +133,19 @@ window.addEventListener('load', function(event) {
 						}
 					} else {
 						item.classList.add('err');
-						if (index == 0) {
-							document.querySelector('.error_l1').innerHTML = "* Incorrect email";
-						} else if (index == 1) {
-							document.querySelector('.error_l2').innerHTML = "* The length of password " +
-								"must be more than 5 symbols";
+						if(value == 0){
+							if (index == 0) {
+								document.querySelector('.error_l1').innerHTML = "* Email field is required";
+							} else if (index == 1) {
+								document.querySelector('.error_l2').innerHTML = "* Password field is required";
+							}
+						}else{
+							if (index == 0) {
+								document.querySelector('.error_l1').innerHTML = "* Incorrect email";
+							} else if (index == 1) {
+								document.querySelector('.error_l2').innerHTML = "* Password must be 6-16 " +
+									"characters in length";
+							}
 						}
 						isError = true;
 						event.preventDefault();

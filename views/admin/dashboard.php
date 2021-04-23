@@ -4,21 +4,37 @@
 
 <?php
 foreach ($all_info as $all) {
-    echo
-		"<div class='container'>" .
-              "<div class='row'>" .
+    if($all['pic']==NULL){
+        echo
+            "<div class='container'>" .
+                "<div class='row'>" .
                 "<div class='col-3 uploaded_pic'>" .
-                    "<img src=" . '"uploads/' . $all['pic'] . '"' . 'width="250" height="250"' . ">" .
+                    "<img src='avatar.jpg' width='250'>" .
                 "</div>" .
                 "<div class='col-9'> " .
-                    "<label>Full name:</label>" .
-                    '<input class="info_input" readonly type="text" value ="' . " " . $all['first_name'] .
-                     " " . $all['last_name'] . '"' . "><br>" .
-                    "<label>Email:</label>" .
-                    '<input class="info_input" readonly type="text" value ="' . " " . $all['email'] . '"' . "><br>" .
-                 "</div>" .
-              "</div>";
-
+                "<label>Full name:</label>" .
+                '<input class="info_input" readonly type="text" value ="' . " " . $all['first_name'] .
+                " " . $all['last_name'] . '"' . "><br>" .
+                "<label>Email:</label>" .
+                '<input class="info_input" readonly type="text" value ="' . " " . $all['email'] . '"' . "><br>" .
+                "</div>" .
+            "</div>";
+    }else{
+        echo
+            "<div class='container'>" .
+            "<div class='row'>" .
+            "<div class='col-3 uploaded_pic'>" .
+            "<img src=" . '"uploads/' . $all['pic'] . '"' . 'width="250" height="250"' . ">" .
+        "</div>" .
+        "<div class='col-9'> " .
+        "<label>Full name:</label>" .
+        '<input class="info_input" readonly type="text" value ="' . " " . $all['first_name'] .
+        " " . $all['last_name'] . '"' . "><br>" .
+        "<label>Email:</label>" .
+        '<input class="info_input" readonly type="text" value ="' . " " . $all['email'] . '"' . "><br>" .
+        "</div>" .
+        "</div>";
+    }
 }
 
     	if (isset($_POST['submit'])) {
