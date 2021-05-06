@@ -9,21 +9,19 @@ window.addEventListener('load', function(event) {
 		'first_name': /^[A-Za-z]{3,16}$/,
 		'last_name': /^[A-Za-z]{5,16}$/,
 		'email': /^.+@.+\..+/,
-		'password': /^[a-zA-Z0-9!@#$%^&*]{6,16}$/
+		'password': /^[a-zA-Z0-9@#$%^&*]{6,16}$/
 	}
 
 
 	//................Image Uploading .................
-	let uploaded_pic = document.querySelector('.uploaded_pic')
-	let img_message = document.querySelector('.img_message');
+	let uploaded_pic = document.querySelector('body .uploaded_pic')
+	let img_message = document.querySelector('body .img_message');
 	let img_button = document.querySelector('#img_button');
 
 	if(typeof(img_message) != 'undefined' && img_message != null){
-		uploaded_pic.style.opacity = "0.7";
-
+		// alert("test");
 		img_button.addEventListener("click", function (){
 			img_message.style.display = "none";
-			uploaded_pic.style.opacity = "1";
 		});
 	}
 
@@ -61,20 +59,35 @@ window.addEventListener('load', function(event) {
 						}
 					} else {
 						item.classList.add('err');
-						if (index == 0) {
-							document.querySelector('.error_1').innerHTML = "* The length of first " +
-								"name must be more than 2 symbols";
-						} else if (index == 1) {
-							document.querySelector('.error_2').innerHTML = "* The length of last name " +
-								"must be more than 4 symbols";
+						if(value == 0){
+							if (index == 0) {
+								document.querySelector('.error_1').innerHTML = "* First name field is required";
+							} else if (index == 1) {
+								document.querySelector('.error_2').innerHTML = "* Last name field is required";
 
-						} else if (index == 2) {
-							document.querySelector('.error_3').innerHTML = "* Incorrect email";
+							} else if (index == 2) {
+								document.querySelector('.error_3').innerHTML = "* Email field is required";
 
-						} else if (index == 3) {
-							document.querySelector('.error_4').innerHTML = "* The length of password " +
-								"must be more than 5 symbols";
+							} else if (index == 3) {
+								document.querySelector('.error_4').innerHTML = "* Password field is required";
+							}
+						}else{
+							if (index == 0) {
+								document.querySelector('.error_1').innerHTML = "* First name must be 3-16 " +
+									"characters in length";
+							} else if (index == 1) {
+								document.querySelector('.error_2').innerHTML = "* Last name must be 5-16 " +
+									"characters in length";
+
+							} else if (index == 2) {
+								document.querySelector('.error_3').innerHTML = "* Incorrect email";
+
+							} else if (index == 3) {
+								document.querySelector('.error_4').innerHTML = "* Password must be 6-16 " +
+									"characters in length";
+							}
 						}
+
 						isError = true;
 						event.preventDefault();
 
@@ -118,11 +131,19 @@ window.addEventListener('load', function(event) {
 						}
 					} else {
 						item.classList.add('err');
-						if (index == 0) {
-							document.querySelector('.error_l1').innerHTML = "* Incorrect email";
-						} else if (index == 1) {
-							document.querySelector('.error_l2').innerHTML = "* The length of password " +
-								"must be more than 5 symbols";
+						if(value == 0){
+							if (index == 0) {
+								document.querySelector('.error_l1').innerHTML = "* Email field is required";
+							} else if (index == 1) {
+								document.querySelector('.error_l2').innerHTML = "* Password field is required";
+							}
+						}else{
+							if (index == 0) {
+								document.querySelector('.error_l1').innerHTML = "* Incorrect email";
+							} else if (index == 1) {
+								document.querySelector('.error_l2').innerHTML = "* Password must be 6-16 " +
+									"characters in length";
+							}
 						}
 						isError = true;
 						event.preventDefault();
@@ -131,7 +152,123 @@ window.addEventListener('load', function(event) {
 			}
 		});
 	}
+
+//	..................Image Uploading...................
+
+	let inpFile = document.getElementById("inpFile");
+	let previewContainer = document.getElementById("imagePreview");
+	let previewImage = previewContainer.querySelector(".image-preview__image");
+	let previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
+	let inpFileSubmit = document.getElementById("inpFileSubmit");
+
+	q = document.getElementById('edit_image').getAttribute('src');
+	// console.log(q);
+	if(q){
+		previewDefaultText.style.display = "none";
+	}
+
+	inpFile.addEventListener("change", function (){
+		let file = this.files[0];
+
+		if(file) {
+			let reader = new FileReader();
+			previewDefaultText.style.display = "none";
+			previewImage.style.display = "block";
+
+			reader.addEventListener("load", function () {
+				//console.log(this);
+				previewImage.setAttribute("src", this.result);
+
+			});
+
+			reader.readAsDataURL(file);
+		}else{
+			previewDefaultText.style.display = null;
+			previewImage.style.display = null;
+			previewImage.setAttribute("src", "");
+		}
+	});
+
+
+//	................. Checking a input field value .................
+
+	let productName = document.querySelector("#product_name");
+	let price = document.querySelector("#price");
+	let description = document.querySelector("#description");
+	let addForm = document.querySelector("#add_form");
+	let priceError = document.querySelector(".price_error");
+
+	if(typeof(addForm) != 'undefined' && addForm != null) {
+		let isErr = false;
+		addForm.addEventListener('submit', function (event) {
+			let isErr = false;
+			let patt =  /^[1-9]+[0-9]{1,16}$/;
+
+			if (productName.value == "" || (price.value == "" || description.value == "")) {
+
+				let span = document.querySelector(".add_error");
+				span.innerHTML = "* Please fill in all required fields";
+				priceError.style.display = "none";
+				isErr = true;
+				event.preventDefault();
+
+				if (!patt.test(price.value)){
+					//alert(span);
+					priceError.style.display = "block";
+					isErr = true;
+					event.preventDefault();
+				}
+			}else {
+				let span = document.querySelector(".add_error");
+				span.innerHTML = "";
+
+				if (!patt.test(price.value)){
+					//alert(span);
+					priceError.style.display = "block";
+					 isErr = true;
+					event.preventDefault();
+				}
+			}
+		});
+	}
+
+
+//...................Popup Box for Delete Button......................
+
+	// let deleteBtn = document.querySelector(".delete_btn")
+	// // let modal = document.querySelector(".modal-content");
+	// let popup = document.querySelector(".popup");
+	// let okBtn = document.querySelector("#ok_btn");
+	// let cancelBtn = document.querySelector("#cancel_btn");
+	//
+	// if(typeof(deleteBtn) != 'undefined' && deleteBtn != null) {
+	// 	deleteBtn.addEventListener("click", function(event){
+	// 		popup.style.display = "block";
+	// 		if(popup){
+	// 			event.preventDefault();
+	// 		}else{
+	// 			event.stopPropagation();
+	// 		}
+	// 	});
+	//
+	// 	okBtn.addEventListener("click", function() {
+	// 		popup.style.display = "none";
+	// 	});
+	//
+	// 	cancelBtn.addEventListener("click", function() {
+	// 		popup.style.display = "none";
+	// 	});
+	// }
+
+
+	// deleteBtn.addEventListener('click', function (event){
+	// 	if(!confirm("fgdfg")){
+	// 		event.preventDefault();
+	// 	}
+	// });
+
 //.......................................................
 });
+
 
 

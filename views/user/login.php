@@ -18,7 +18,7 @@
 		  <?php endif; ?>
       </div>
     <input name="sign-in" class="w-100 btn btn-lg btn-primary line" type="submit" value="Sign in">
-
+      <div id="reg_btn"><a id="reg_btn" href="/user/register">Create New Account</a></div>
   </form>
 
     <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
