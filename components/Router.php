@@ -61,6 +61,7 @@ class Router
                 $actionName = 'action' . ucfirst(array_shift($segments));
 
                 $parameters = $segments;
+//                var_dump($parameters);
 
                 // Подключить файл класса-контроллера
                 $controllerFile = ROOT . '/controllers/' .
@@ -69,26 +70,21 @@ class Router
                 if (file_exists($controllerFile)) {
 
 					if (method_exists($controllerName, $actionName)) {
-						if(count($parameters) == 0){
-							// Создать объект, вызвать метод (т.е. action)
-							$controllerObject = new $controllerName;
 
-							/* Вызываем необходимый метод ($actionName) у определенного
-							 * класса ($controllerObject) с заданными ($parameters) параметрами*/
-							call_user_func_array(array($controllerObject, $actionName), $parameters);
-							break;
-						}else{
-							$controllerObject = new PageErrorController();
-							$controllerObject->actionNotFound();
-//						    die($parameters);
-						}
+					    if (isset($parameters)){
+                            $controllerObject = new $controllerName;
+
+//                          /* Вызываем необходимый метод ($actionName) у определенного
+//                          * класса ($controllerObject) с заданными ($parameters) параметрами*/
+                            call_user_func_array(array($controllerObject, $actionName), $parameters);
+                            break;
+                        }
+
 					} else{
 						$controllerObject = new PageErrorController();
 						$controllerObject->actionNotFound();
 					}
 				} else {
-               		//die("test");
-//					header("Location: /not-found-page.php");
 					$controllerObject = new PageErrorController();
 					$controllerObject->actionNotFound();
 				}

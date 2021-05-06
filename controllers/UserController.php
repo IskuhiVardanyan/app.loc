@@ -79,6 +79,13 @@ class UserController
         require_once(ROOT . '/views/user/login.php');
         return true;
     }
+//
+//    public function actionMore($id)
+//    {
+//        $arr = Products::getProductsById($id);
+//        require_once(ROOT . '/views/user/more.php');
+//        return true;
+//    }
 
     public function actionLogout()
     {
