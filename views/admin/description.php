@@ -35,15 +35,13 @@
                     '</div>' .
 
                     "<div class='col-6'>" .
-                        "<img src=" . '"/uploads/' . $products['image'] . '"' . " " . 'width="400" height="400"' . ">" .
+                        "<img src=" . '"/uploads/' . $products['image'] . '"' . " " . 'width="400" height="400"' . " style='object-fit:cover;'>" .
                     "</div>" .
                 "</div>" .
             "</div>";
 
         }
-
 ?>
-
     </div>
 </div>
 <?php include ROOT . '/views/layouts/dashboard_footer.php'; ?>

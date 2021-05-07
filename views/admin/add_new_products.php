@@ -48,8 +48,8 @@
 
                     <div class="col-4" style = "display: inline-block;">
                        <div class="image-preview" id="imagePreview">
-                            <img src="" class="image-preview__image" style="max-width: 200px; min-height: 200px;" id="edit_image">
-                            <span class="image-preview__default-text" style="margin-right: 70px;">Image Preview</span>
+                            <img src="" class="image-preview__image" style="max-width: 200px; min-height: 200px;" id="edit_image" alt="Image Preview">
+                            <span class="image-preview__default-text" ></span>
                        </div>
                         <?php
                         if (isset($_POST['submit'])) {

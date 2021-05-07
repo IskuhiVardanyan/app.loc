@@ -165,6 +165,7 @@ window.addEventListener('load', function(event) {
 	// console.log(q);
 	if(q){
 		previewDefaultText.style.display = "none";
+
 	}
 
 	inpFile.addEventListener("change", function (){
@@ -202,7 +203,7 @@ window.addEventListener('load', function(event) {
 		let isErr = false;
 		addForm.addEventListener('submit', function (event) {
 			let isErr = false;
-			let patt =  /^[1-9]+[0-9]{1,16}$/;
+			let patt =  /^[0-9]{1,16}$/;
 
 			if (productName.value == "" || (price.value == "" || description.value == "")) {
 
@@ -235,37 +236,67 @@ window.addEventListener('load', function(event) {
 
 //...................Popup Box for Delete Button......................
 
-	// let deleteBtn = document.querySelector(".delete_btn")
-	// // let modal = document.querySelector(".modal-content");
-	// let popup = document.querySelector(".popup");
-	// let okBtn = document.querySelector("#ok_btn");
-	// let cancelBtn = document.querySelector("#cancel_btn");
-	//
-	// if(typeof(deleteBtn) != 'undefined' && deleteBtn != null) {
-	// 	deleteBtn.addEventListener("click", function(event){
-	// 		popup.style.display = "block";
-	// 		if(popup){
-	// 			event.preventDefault();
-	// 		}else{
-	// 			event.stopPropagation();
-	// 		}
-	// 	});
-	//
-	// 	okBtn.addEventListener("click", function() {
-	// 		popup.style.display = "none";
-	// 	});
-	//
-	// 	cancelBtn.addEventListener("click", function() {
-	// 		popup.style.display = "none";
-	// 	});
-	// }
+	let deleteBtn = document.querySelectorAll(".delete_btn");
+	let popup = document.querySelector(".modal");
+	let okBtn = document.querySelector("#ok_btn");
+	let cancelBtn = document.querySelector("#cancel_btn");
+
+	if(typeof(deleteBtn) != 'undefined' && deleteBtn != null) {
+
+		for(let i = 0; i < deleteBtn.length; i++){
+			deleteBtn[i].addEventListener("click", function(){
+				let dataId = deleteBtn[i].getAttribute("data-id");
+				okBtn.href = '/admin/delete/' + dataId ;
+				popup.style.display = "block";
+			});
+		}
+	}
+
+	//	................. Checking a input field value for Edit page.................
+
+	let productNameEdit = document.querySelector("#product_name_edit");
+	let priceEdit = document.querySelector("#price_edit");
+	let descriptionEdit = document.querySelector("#description_edit");
+	let editForm = document.querySelector("#edit_form");
+	let priceErrorEdit = document.querySelector(".price_error_edit");
+
+	if(typeof(editForm) != 'undefined' && editForm != null) {
+		let isErr = false;
+		editForm.addEventListener('submit', function (event) {
+			//alert("fg");
+			let isErr = false;
+			let patt =  /^[0-9]{1,16}$/;
+
+			if (productNameEdit.value == "" || (priceEdit.value == "" || descriptionEdit.value == "")) {
+
+				let span = document.querySelector(".edit_error");
+				span.innerHTML = "* Please fill in all required fields";
+				priceErrorEdit.style.display = "none";
+				isErr = true;
+				event.preventDefault();
+
+				if (!patt.test(priceEdit.value)){
+					//alert(span);
+					priceErrorEdit.style.display = "block";
+					isErr = true;
+					event.preventDefault();
+				}
+			}else {
+				let span = document.querySelector(".edit_error");
+				span.innerHTML = "";
+
+				if (!patt.test(priceEdit.value)){
+					//alert(span);
+					priceErrorEdit.style.display = "block";
+					isErr = true;
+					event.preventDefault();
+				}
+			}
+		});
+	}
 
 
-	// deleteBtn.addEventListener('click', function (event){
-	// 	if(!confirm("fgdfg")){
-	// 		event.preventDefault();
-	// 	}
-	// });
+
 
 //.......................................................
 });
