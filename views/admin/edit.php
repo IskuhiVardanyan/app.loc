@@ -17,32 +17,32 @@
   <div class="container">
       <div class="row">
           <div class="col-10" style="margin-left: 200px;">
-              <form action="" method="post" enctype="multipart/form-data" id="add_form"><br>
+              <form action="" method="post" enctype="multipart/form-data" id="edit_form"><br>
 <?php
                   foreach ($all_products as $products) {
                       echo '<div class="row">' .
                               '<div class="col-6">' .
                                   '<label for="product_name">Product name:</label>' .
-                                  '<input type = "text" id = "product_name" name = "product_name" value="' . $products['product_name'] .
+                                  '<input type = "text" id = "product_name_edit" name = "product_name" value="' . $products['product_name'] .
                                   '">' . '<br><br>' .
 
                                   '<label for="price">Price:</label>' .
-                                  '<input type = "text" id = "price" name = "price" style = "margin-left: 69px;" value="' .
+                                  '<input type = "text" id = "price_edit" name = "price" style = "margin-left: 69px;" value="' .
                                   $products['price'] . '"><br><br>' .
-                                  '<span class="price_error">* Only numbers</span><br><br>' .
+                                  '<span class="price_error_edit">* Only numbers</span><br><br>' .
 
                                   '<label for="description">Description</label><br>' .
-                                  '<textarea rows = "5" cols = "5" name = "text" id="description">' . $products['description'] . '</textarea>' .
+                                  '<textarea rows = "5" cols = "5" name = "text" id="description_edit">' . $products['description'] . '</textarea>' .
                                   '<br><br>' .
 
-                                  '<input type = "submit" name = "edit" value = "Edit">' .
+                                  '<input type = "submit" name = "edit" value = "Edit" class="edit">' .
                               '</div>' .
                               '<div class="col-6">' .
                                   ' <div class="image-preview" id="imagePreview">';
 
                               if($products['image'] != NULL){
                                  echo "<img src=" . '"/uploads/' . $products['image'] . '"' . " " .
-                                     'class="image-preview__image"' . 'style="max-width:200px; min-height:200px;" ' .
+                                     'class="image-preview__image"' . 'style="width:200px; height:200px;" ' .
                                      'id="edit_image"' . ">" .
                                   '<span class="image-preview__default-text">Image Preview</span>';
                               }else{
@@ -57,6 +57,7 @@
                               '</div>' .
                            '</div>';
 ?>
+                    <span class="edit_error"></span>
                   </form>
           </div>
       </div>

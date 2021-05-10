@@ -21,10 +21,10 @@
                         echo '<tr>' .
                             '<td>' . $all_p['product_name'] . '</td>' .
                             '<td>' . $all_p['price'] . '</td>' .
-                            '<td>' . '<a href="/home/more/' . $all_p['product_id'] . '">' .
+                            '<td>' . '<a href="/home/more/' . $all_p['product_id'] . '" class="description_btn">' .
                             '<span>' . "Description" . '</span></a>' . '</td>' .
                             '<td>' . "<img src=" . '"uploads/' . $all_p['image'] . '"' .
-                            'width="80%" max-height="150px" max-width="200px"' . ">" . '</td>';
+                            'height="250px" width="250px"' . " " . 'style="object-fit: cover"' . ">" . '</td>';
                     }
             echo '</tbody>' .
             '</table>' ;
