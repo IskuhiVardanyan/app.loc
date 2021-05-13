@@ -14,7 +14,9 @@ return array(
 
 	// Home control route:
     ''      => 'home/index',
+    '/cart' => 'home/cart',
     '/more/([0-9]+)' => 'home/more/$1',
+
 
 	// Page Error control route
 	'pageError/notFound' => 'pageError/notFound'

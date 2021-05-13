@@ -17,5 +17,12 @@ class HomeController
         return true;
     }
 
+    public function actionCart()
+    {
+
+        require_once(ROOT . '/views/user/cart.php');
+        return true;
+    }
+
 
 }

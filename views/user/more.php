@@ -10,7 +10,8 @@
     <link href="/template/css/bootstrap.min.css" rel="stylesheet">
     <link href="/template/css/style.css" rel="stylesheet">
 </head>
-<body>
+<body style="background-image: url('/uploads/admin_img.jpeg');
+            background-size: cover;">
 
 <?php
     foreach ($arr as $products) {
