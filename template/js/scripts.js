@@ -13,7 +13,43 @@ window.addEventListener('load', function(event) {
 	}
 
 
-	//................Image Uploading .................
+
+//......................... Cart ............................
+
+	let shopItemButton = document.querySelectorAll(".shop-item-button");
+	let cartItemValue = document.querySelector(".cart_item_value");
+	let homeProductName = document.querySelectorAll(".home_product_name");
+	let homeProductPrice = document.querySelectorAll(".home_product_price");
+	let homeProductImage = document.querySelectorAll(".home_product_image");
+	let productItemName = document.querySelectorAll(".product_item_name");
+	let arr = homeProductName[0].innerHTML;
+
+	//console.log(cartItemValue.innerHTML);
+	for(let i=0; i< shopItemButton.length; i++){
+		shopItemButton[i].addEventListener("click", function(){
+			cartItemValue.innerHTML++;
+			// alert(productItemName.innerHTML);
+			// productItemName.innerHTML = homeProductName[i].innerHTML;
+		});
+	}
+
+	if(typeof(productItemName) != undefined || productItemName !=null){
+		productItemName[0].innerHTML = arr;
+		console.log(productItemName[0]);
+	}
+
+	let k = function addElement(){
+		productItemName.innerHTML = homeProductName.innerHTML;
+		alert(homeProductName.innerHTML);
+	}
+
+
+
+
+
+
+//........................ Image Uploading ..........................
+
 	let uploaded_pic = document.querySelector('body .uploaded_pic')
 	let img_message = document.querySelector('body .img_message');
 	let img_button = document.querySelector('#img_button');
@@ -25,7 +61,7 @@ window.addEventListener('load', function(event) {
 		});
 	}
 
-	//............................Register Form Validation.............................
+//............................ Register Form Validation ............................
 
 	if(typeof(register_form) != 'undefined' && register_form != null){
 
@@ -98,7 +134,7 @@ window.addEventListener('load', function(event) {
 		});
 	}
 
-	//............................Login Form Validation.............................
+	//............................ Login Form Validation .............................
 
 	if(typeof(login_form) != 'undefined' && login_form != null){
 
@@ -294,7 +330,6 @@ window.addEventListener('load', function(event) {
 			}
 		});
 	}
-
 
 
 
