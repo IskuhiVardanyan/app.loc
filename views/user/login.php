@@ -31,7 +31,7 @@
                             '<li><a class="nav-link active" aria-current="page" href="/" style="color: #1a1a1a">Home</a></li>' .
                             '<li><a class="nav-link" href="/user/register" style="color: #1a1a1a">Register</a></li>' .
                             '<li><a class="nav-link" href="/home/cart" style="color: #1a1a1a">
-                            <img src="/uploads/basket_icon.png" width="36px" height="36px"><span>5</span></a></li>' .
+                            <img src="/uploads/basket_icon.png" width="36px" height="36px"><span class="cart_item_value"></span></a></li>' .
                             '</ul>';
 
                         ?>
