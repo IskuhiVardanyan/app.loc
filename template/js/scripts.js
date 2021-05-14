@@ -21,30 +21,77 @@ window.addEventListener('load', function(event) {
 	let homeProductName = document.querySelectorAll(".home_product_name");
 	let homeProductPrice = document.querySelectorAll(".home_product_price");
 	let homeProductImage = document.querySelectorAll(".home_product_image");
-	let productItemName = document.querySelectorAll(".product_item_name");
-	let arr = homeProductName[0].innerHTML;
+	let cartItems = document.querySelector(".cart-items");
+	let objArray = [];
+
+//.....................Showing number of products in cart......................
+	if(typeof(cartItemValue) != 'undefined' && cartItemValue != null){
+		if (localStorage.getItem("key") != null) {
+			cartItemValue.innerHTML = JSON.parse(localStorage.getItem("key"));
+		}
+	}
 
 	//console.log(cartItemValue.innerHTML);
-	for(let i=0; i< shopItemButton.length; i++){
-		shopItemButton[i].addEventListener("click", function(){
+
+	for(let i = 0; i < shopItemButton.length; i++){
+		let clickNum = 0;
+		shopItemButton[i].addEventListener("click", function(e){
+			clickNum++;
+			//console.log(clickNum);
+			//console.log(productObj.name);
 			cartItemValue.innerHTML++;
-			// alert(productItemName.innerHTML);
-			// productItemName.innerHTML = homeProductName[i].innerHTML;
+			let strCartItemValue = JSON.stringify(cartItemValue.innerHTML); // String representation of an object
+			localStorage.setItem("key", strCartItemValue);
+			cartItemValue.innerHTML = JSON.parse(localStorage.getItem("key"));
+
+			let productObj = {
+				name: homeProductName[i].innerHTML,
+				image: homeProductImage[i].src,
+				price:homeProductPrice[i].innerHTML,
+				quantity: clickNum
+			};
+
+			let strProductObj = JSON.stringify(productObj); // make string
+			localStorage.setItem("productKey", strProductObj);
+
+			 // insert into objArray . We have an array of string objects
+			//console.log(objArray[i].name);
 		});
 	}
 
-	if(typeof(productItemName) != undefined || productItemName !=null){
-		productItemName[0].innerHTML = arr;
-		console.log(productItemName[0]);
+
+
+//......................Showing a products in the cart page........................
+	if(typeof(cartItems) != 'undefined' && cartItems != null){
+		//let itemPrice = document.querySelector(".item_price");
+
+		// 	localStorage.setItem("productKey", JSON.stringify(objArray[j]));
+		// 	console.log(localStorage);
+		// }
+		// if (localStorage.getItem("productKey") != null) {
+		// 	let obj = JSON.parse(localStorage.getItem("productKey"));
+		objArray.push(JSON.parse(localStorage.getItem("productKey")));
+		//console.log(objArray);
+		for(let j=0; j<objArray.length;j++){
+			//console.log(objArray[j].name);
+			cartItems.innerHTML =
+				'<div class="row item_container">' +
+				'<div class="col-4">' +
+				'<img src="' + objArray[j].image + '" width="200px" height="200px"><br>' +
+				'<span class="product_item_name">' + objArray[j].name + '</span>' +
+				'</div>' +
+				'<div class="col-4">' +
+				'<span class="item_price">' + objArray[j].price + '</span>' +
+				'</div>' +
+				'<div class="col-4">' +
+				'<input class="cart-quantity-input" type="number" value="' + objArray[j].quantity + '">' +
+				'<button class="btn btn-danger btn_remove" type="button">Remove</button>' +
+				'</div>' +
+				'</div>';
+		}
+
+		//}
 	}
-
-	let k = function addElement(){
-		productItemName.innerHTML = homeProductName.innerHTML;
-		alert(homeProductName.innerHTML);
-	}
-
-
-
 
 
 
