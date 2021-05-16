@@ -41,16 +41,29 @@
     </header>
 
     <div class="col-9 cart-items">
-        <h4>Shopping Cart</h4>
-        <div class="row">
-            <div class="col-12 items_titles_content">
-                <ul>
-                    <li><span class="items_titles">Item</span></li>
-                    <li><span class="items_titles">Price</span></li>
-                    <li><span class="items_titles">Quantity</span></li>
-                </ul>
-            </div>
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody class="bbb">
+
+            </tbody>
+        </table>
+<!--        <h4>Shopping Cart</h4>-->
+<!--        <div class="row">-->
+<!--            <div class="col-12 items_titles_content">-->
+<!--                <ul>-->
+<!--                    <li><span class="items_titles">Item</span></li>-->
+<!--                    <li><span class="items_titles">Price</span></li>-->
+<!--                    <li><span class="items_titles">Quantity</span></li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
 <!--        <div class="row item_container">-->
 <!--            <div class="col-4">-->
 <!--                <img src="/uploads/home_img.jpeg" width="200px" height="200px"><br>-->
@@ -64,12 +77,12 @@
 <!--                <button class="btn btn-danger btn_remove" type="button">Remove</button>-->
 <!--            </div>-->
 <!--        </div>-->
-        <div class="row">
-            <div class="col-4 subtotal">
-                <span class="subtotal_name">Subtotal</span>
-                <span class="subtotal_price">5263</span>
-            </div>
-        </div>
+<!--        <div class="row">-->
+<!--            <div class="col-4 subtotal">-->
+<!--                <span class="subtotal_name">Subtotal</span>-->
+<!--                <span class="subtotal_price">5263</span>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 
 <?php include ROOT . '/views/layouts/auth_footer.php'; ?>
