@@ -30,68 +30,68 @@ window.addEventListener('load', function(event) {
 			cartItemValue.innerHTML = JSON.parse(localStorage.getItem("key"));
 		}
 	}
-
 	//console.log(cartItemValue.innerHTML);
 
+
+	let arrClick = [];
 	for(let i = 0; i < shopItemButton.length; i++){
 		let clickNum = 0;
+
 		shopItemButton[i].addEventListener("click", function(e){
 			clickNum++;
-			//console.log(clickNum);
-			//console.log(productObj.name);
+			arrClick[clickNum-1] =  clickNum;
+		//	console.log(arrClick);
 			cartItemValue.innerHTML++;
 			let strCartItemValue = JSON.stringify(cartItemValue.innerHTML); // String representation of an object
 			localStorage.setItem("key", strCartItemValue);
 			cartItemValue.innerHTML = JSON.parse(localStorage.getItem("key"));
-
+//........................................................................
 			let productObj = {
 				name: homeProductName[i].innerHTML,
-				image: homeProductImage[i].src,
 				price:homeProductPrice[i].innerHTML,
-				quantity: clickNum
+				image: homeProductImage[i].src,
+				quantity: arrClick[arrClick.length - 1]
 			};
 
-			let strProductObj = JSON.stringify(productObj); // make string
-			localStorage.setItem("productKey", strProductObj);
+			objArray.push(productObj);
+		    localStorage.setItem("users", JSON.stringify(objArray));
 
-			 // insert into objArray . We have an array of string objects
-			//console.log(objArray[i].name);
+
+
 		});
+		if(typeof(cartItems) != 'undefined' && cartItems != null) {
+
+			if (localStorage.getItem("users") != null) {
+				let products = JSON.parse(localStorage.getItem("users") || "[]");
+				let bbb = document.querySelector(".bbb");
+				let itemContainer = [];
+				for (let j = 0; j < products.length; j++) {
+
+					itemContainer[j] = document.createElement('tr');
+					itemContainer[j].innerHTML =
+						'<td><img src="' + products[j].image + '" width="200px" height="200px"><br></td>' +
+						'<td><span class="product_item_name">' + products[j].name + '</span></td>' +
+						'<td><span class="item_price">' + products[j].price + '</span></td>' +
+						'<td><input class="cart-quantity-input" type="number" value="' + products[j].quantity + '"></td>' +
+						'<td><button class="btn btn-danger btn_remove" type="button">Remove</button></td>';
+					bbb.appendChild(itemContainer[j]);
+				}
+
+			}
+		}
 	}
-
-
 
 //......................Showing a products in the cart page........................
-	if(typeof(cartItems) != 'undefined' && cartItems != null){
-		//let itemPrice = document.querySelector(".item_price");
 
-		// 	localStorage.setItem("productKey", JSON.stringify(objArray[j]));
-		// 	console.log(localStorage);
-		// }
-		// if (localStorage.getItem("productKey") != null) {
-		// 	let obj = JSON.parse(localStorage.getItem("productKey"));
-		objArray.push(JSON.parse(localStorage.getItem("productKey")));
-		//console.log(objArray);
-		for(let j=0; j<objArray.length;j++){
-			//console.log(objArray[j].name);
-			cartItems.innerHTML =
-				'<div class="row item_container">' +
-				'<div class="col-4">' +
-				'<img src="' + objArray[j].image + '" width="200px" height="200px"><br>' +
-				'<span class="product_item_name">' + objArray[j].name + '</span>' +
-				'</div>' +
-				'<div class="col-4">' +
-				'<span class="item_price">' + objArray[j].price + '</span>' +
-				'</div>' +
-				'<div class="col-4">' +
-				'<input class="cart-quantity-input" type="number" value="' + objArray[j].quantity + '">' +
-				'<button class="btn btn-danger btn_remove" type="button">Remove</button>' +
-				'</div>' +
-				'</div>';
-		}
 
-		//}
-	}
+
+//console.log(bbb);
+
+
+
+
+
+
 
 
 
