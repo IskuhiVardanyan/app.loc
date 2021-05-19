@@ -22,52 +22,84 @@ window.addEventListener('load', function(event) {
 	let homeProductPrice = document.querySelectorAll(".home_product_price");
 	let homeProductImage = document.querySelectorAll(".home_product_image");
 	let cartItems = document.querySelector(".cart-items");
+	let bbb = document.querySelector(".bbb");
 	let objArray = [];
-
+	let productObj = [];
 //.....................Showing number of products in cart......................
 	if(typeof(cartItemValue) != 'undefined' && cartItemValue != null){
 		if (localStorage.getItem("key") != null) {
 			cartItemValue.innerHTML = JSON.parse(localStorage.getItem("key"));
 		}
 	}
-	//console.log(cartItemValue.innerHTML);
+	// console.log(cartItemValue.innerHTML);
 
 
-	let arrClick = [];
 	for(let i = 0; i < shopItemButton.length; i++){
-		let clickNum = 0;
-
+		let clickNum = 1;
 		shopItemButton[i].addEventListener("click", function(e){
-			clickNum++;
-			arrClick[clickNum-1] =  clickNum;
-		//	console.log(arrClick);
+			productObj[i] = {
+				name: homeProductName[i].innerHTML,
+				price:homeProductPrice[i].innerHTML,
+				image: homeProductImage[i].src,
+				quantity: clickNum
+			};
+ 		let obj = JSON.parse(localStorage.getItem("users") || "[]");
+				obj.push(productObj[i]);
+				localStorage.setItem("users", JSON.stringify(obj));
+
+
+
+
+
+
+		// if(obj.length === 0){
+		// 	obj.push(productObj[i]);
+		// 	localStorage.setItem("users", JSON.stringify(obj));
+		// }else{
+		// 	for(let j =0; j < obj.length; j++){
+		// 		if(obj[j].name === productObj[i].name){
+		// 			obj[j].quantity++;
+		// 			localStorage.setItem("users", JSON.stringify(obj));
+		// 		}
+		// 	}
+		// }
+
+
+
+
+
+
+//.........................................................................
 			cartItemValue.innerHTML++;
 			let strCartItemValue = JSON.stringify(cartItemValue.innerHTML); // String representation of an object
 			localStorage.setItem("key", strCartItemValue);
 			cartItemValue.innerHTML = JSON.parse(localStorage.getItem("key"));
 //........................................................................
-			let productObj = {
-				name: homeProductName[i].innerHTML,
-				price:homeProductPrice[i].innerHTML,
-				image: homeProductImage[i].src,
-				quantity: arrClick[arrClick.length - 1]
-			};
-
-			objArray.push(productObj);
-		    localStorage.setItem("users", JSON.stringify(objArray));
-
-
-
 		});
-		if(typeof(cartItems) != 'undefined' && cartItems != null) {
+	}
 
-			if (localStorage.getItem("users") != null) {
+	let subtotal = document.querySelector(".subtotal_price");
+
+	function ProductSubtotal(products) {
+		let sum = 0;
+		for (let i = 0; i < products.length; i++) {
+			sum += products[i].price * products[i].quantity;
+			console.log(products);
+		}
+		return sum;
+	}
+
+
+		if(typeof(cartItems) != "undefined" && cartItems != null) {
+
+			if (localStorage.getItem("users").length != null) {
 				let products = JSON.parse(localStorage.getItem("users") || "[]");
-				let bbb = document.querySelector(".bbb");
+
 				let itemContainer = [];
 				for (let j = 0; j < products.length; j++) {
 
 					itemContainer[j] = document.createElement('tr');
+					itemContainer[j].classList.add("product_class");
 					itemContainer[j].innerHTML =
 						'<td><img src="' + products[j].image + '" width="200px" height="200px"><br></td>' +
 						'<td><span class="product_item_name">' + products[j].name + '</span></td>' +
@@ -76,16 +108,24 @@ window.addEventListener('load', function(event) {
 						'<td><button class="btn btn-danger btn_remove" type="button">Remove</button></td>';
 					bbb.appendChild(itemContainer[j]);
 				}
-
+				subtotal.innerHTML = ProductSubtotal(products);
 			}
 		}
-	}
 
-//......................Showing a products in the cart page........................
+		let btnRemove = document.querySelectorAll(".btn_remove");
+		let tr = document.querySelectorAll(".product_class");
+		for(let i = 0; i < btnRemove.length; i ++){
+			btnRemove[i].addEventListener("click", function (){
+				tr[i].remove();
+				let products = JSON.parse(localStorage.getItem("users") || "[]");
+				//use splice() method
+			});
+		}
 
 
 
-//console.log(bbb);
+
+
 
 
 
