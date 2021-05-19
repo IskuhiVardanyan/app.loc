@@ -54,35 +54,13 @@
 
             </tbody>
         </table>
-<!--        <h4>Shopping Cart</h4>-->
-<!--        <div class="row">-->
-<!--            <div class="col-12 items_titles_content">-->
-<!--                <ul>-->
-<!--                    <li><span class="items_titles">Item</span></li>-->
-<!--                    <li><span class="items_titles">Price</span></li>-->
-<!--                    <li><span class="items_titles">Quantity</span></li>-->
-<!--                </ul>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="row item_container">-->
-<!--            <div class="col-4">-->
-<!--                <img src="/uploads/home_img.jpeg" width="200px" height="200px"><br>-->
-<!--                <span class="product_item_name">fh</span>-->
-<!--            </div>-->
-<!--            <div class="col-4">-->
-<!--                <span class="item_price">45</span>-->
-<!--            </div>-->
-<!--            <div class="col-4">-->
-<!--                <input class="cart-quantity-input" type="number" value="1">-->
-<!--                <button class="btn btn-danger btn_remove" type="button">Remove</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="row">-->
-<!--            <div class="col-4 subtotal">-->
-<!--                <span class="subtotal_name">Subtotal</span>-->
-<!--                <span class="subtotal_price">5263</span>-->
-<!--            </div>-->
-<!--        </div>-->
+
+        <div class="row">
+            <div class="col-4 subtotal">
+                <span class="subtotal_name">Subtotal</span>
+                <span class="subtotal_price"></span>
+            </div>
+        </div>
     </div>
 
 <?php include ROOT . '/views/layouts/auth_footer.php'; ?>
