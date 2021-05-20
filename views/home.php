@@ -50,7 +50,7 @@
                     '<span>' . "Description" . '</span></a>' .
                     '<button class="shop-item-button" type="button">Add to cart</button>' . '</td>' .
                     '<td>' . "<img class='home_product_image' src=" . '"uploads/' . $all_p['image'] . '"' .
-                    'height="250px" width="250px"' . " " . 'style="object-fit: cover"' . ">" . '</td>';
+                    ' height="250px" width="250px"' . " " . 'style="object-fit: cover"' . ">" . '</td>';
             }
             echo '</tbody>' .
                 '</table>';
@@ -77,7 +77,6 @@
         }
     });
 
-    //....................Cart..............................
 
 
 </script>

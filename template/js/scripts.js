@@ -22,77 +22,111 @@ window.addEventListener('load', function(event) {
 	let homeProductPrice = document.querySelectorAll(".home_product_price");
 	let homeProductImage = document.querySelectorAll(".home_product_image");
 	let cartItems = document.querySelector(".cart-items");
-	let objArray = [];
-
+	let cartItemsTable = document.querySelector(".cart_items_table");
+	let subtotal = document.querySelector(".subtotal_price");
+	let productObj = [];
 //.....................Showing number of products in cart......................
+
 	if(typeof(cartItemValue) != 'undefined' && cartItemValue != null){
 		if (localStorage.getItem("key") != null) {
 			cartItemValue.innerHTML = JSON.parse(localStorage.getItem("key"));
 		}
 	}
-	//console.log(cartItemValue.innerHTML);
 
-
-	let arrClick = [];
 	for(let i = 0; i < shopItemButton.length; i++){
-		let clickNum = 0;
-
+		let clickNum = 1;
 		shopItemButton[i].addEventListener("click", function(e){
-			clickNum++;
-			arrClick[clickNum-1] =  clickNum;
-		//	console.log(arrClick);
+			productObj[i] = {
+				name: homeProductName[i].innerHTML,
+				price:homeProductPrice[i].innerHTML,
+				image: homeProductImage[i].src,
+				quantity: clickNum
+			};
+			let obj = JSON.parse(localStorage.getItem("users") || "[]");
+			obj.push(productObj[i]);
+			localStorage.setItem("users", JSON.stringify(obj));
+//.........................................................................
 			cartItemValue.innerHTML++;
 			let strCartItemValue = JSON.stringify(cartItemValue.innerHTML); // String representation of an object
 			localStorage.setItem("key", strCartItemValue);
 			cartItemValue.innerHTML = JSON.parse(localStorage.getItem("key"));
-//........................................................................
-			let productObj = {
-				name: homeProductName[i].innerHTML,
-				price:homeProductPrice[i].innerHTML,
-				image: homeProductImage[i].src,
-				quantity: arrClick[arrClick.length - 1]
-			};
-
-			objArray.push(productObj);
-		    localStorage.setItem("users", JSON.stringify(objArray));
-
-
-
 		});
-		if(typeof(cartItems) != 'undefined' && cartItems != null) {
+	}
 
-			if (localStorage.getItem("users") != null) {
-				let products = JSON.parse(localStorage.getItem("users") || "[]");
-				let bbb = document.querySelector(".bbb");
-				let itemContainer = [];
-				for (let j = 0; j < products.length; j++) {
+//..........................Sum of product prices...............................
 
-					itemContainer[j] = document.createElement('tr');
-					itemContainer[j].innerHTML =
-						'<td><img src="' + products[j].image + '" width="200px" height="200px"><br></td>' +
-						'<td><span class="product_item_name">' + products[j].name + '</span></td>' +
-						'<td><span class="item_price">' + products[j].price + '</span></td>' +
-						'<td><input class="cart-quantity-input" type="number" value="' + products[j].quantity + '"></td>' +
-						'<td><button class="btn btn-danger btn_remove" type="button">Remove</button></td>';
-					bbb.appendChild(itemContainer[j]);
-				}
+	function ProductSubtotal(products) {
+		let sum = 0;
+		for (let i = 0; i < products.length; i++) {
+			sum += products[i].price * products[i].quantity;
+			console.log(products);
+		}
+		return sum;
+	}
 
+//..........................Insert product row..............................
+
+	if(typeof(cartItems) != "undefined" && cartItems != null) {
+		if (localStorage.getItem("users").length != null) {
+		let products = JSON.parse(localStorage.getItem("users") || "[]");
+		let itemContainer = [];
+			for (let j = 0; j < products.length; j++) {
+
+				itemContainer[j] = document.createElement('tr');
+				itemContainer[j].classList.add("product_class");
+				itemContainer[j].innerHTML =
+					'<td><img src="' + products[j].image + '" width="200px" height="200px"><br></td>' +
+					'<td><span class="product_item_name">' + products[j].name + '</span></td>' +
+					'<td><span class="item_price">' + products[j].price + '</span><span> &#36</span></td>' +
+					'<td><input class="cart-quantity-input" type="number" value="' + products[j].quantity + '"></td>' +
+					'<td><button class="btn btn-danger btn_remove" type="button">Remove</button></td>';
+				cartItemsTable.appendChild(itemContainer[j]);
 			}
+		subtotal.innerHTML = ProductSubtotal(products);
 		}
 	}
 
-//......................Showing a products in the cart page........................
+//............................Remove an element.............................
 
+	let btnRemove = document.querySelectorAll(".btn_remove");
+	let tr = document.querySelectorAll(".product_class");
+	let products = [];
 
+	for(let i = 0; i < btnRemove.length; i++){
+		btnRemove[i].addEventListener("click", function (){
+			products = JSON.parse(localStorage.getItem("users") || "[]");
+			products.splice(i,1);
+			localStorage.setItem("users", JSON.stringify(products));
+			tr[i].remove();
+			subtotal.innerHTML = ProductSubtotal(products);
 
-//console.log(bbb);
+//...........................Update Cart Value.....................................
 
+			let cartUpdate = JSON.parse(localStorage.getItem("key"))-1;
+			let newValue = JSON.stringify(cartUpdate); // String representation of an object
+			localStorage.setItem("key", newValue);
+			cartItemValue.innerHTML = JSON.parse(localStorage.getItem("key"));
+		});
+	}
 
-
-
-
-
-
+//..........................Changing a count of products...........................
+	if(typeof(cartItems) != "undefined" && cartItems != null) {
+		let cartQuantityInput = document.querySelectorAll(".cart-quantity-input");
+		for (let i = 0; i < cartQuantityInput.length; i++) {
+			cartQuantityInput[i].addEventListener("change", function () {
+				products = JSON.parse(localStorage.getItem("users") || "[]");
+				if(isNaN(cartQuantityInput[i].value) || cartQuantityInput[i].value<=0){
+					cartQuantityInput[i].value = 1;
+					products[i].quantity = cartQuantityInput[i].value;
+				}else{
+					products[i].quantity = cartQuantityInput[i].value;
+				}
+				localStorage.setItem("users", JSON.stringify(products));
+				subtotal.innerHTML = ProductSubtotal(products);
+			});
+		}
+	}
+//...................................................................................
 
 
 //........................ Image Uploading ..........................

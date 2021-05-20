@@ -551,6 +551,7 @@ a:link{
   background-color: white;
   margin: 0 auto;
   margin-top: 120px;
+  padding-bottom: 70px;
 }
 
 .shop-item-button{
@@ -613,6 +614,36 @@ a:link{
 .product_item_name{
   margin-right: 150px;
   color: #1b1e21;
+}
+
+.cart_items_table tr{
+  color: #1b1e21;
+}
+
+.cart_items_list td{
+   width: 197px;
+  border-bottom: 1px solid #5a6268;
+ }
+
+.cart_items_list span{
+  margin: 0 auto;
+}
+
+.product_class{
+  border-bottom: 1px solid grey;
+}
+
+.product_class td{
+  width: 190px;
+}
+
+.subtotal span{
+  font-weight: bold;
+}
+
+.product_class td span{
+  font-weight: bold;
+  margin: 0 auto;
 }
 
 

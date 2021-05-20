@@ -41,7 +41,7 @@
     </header>
 
     <div class="col-9 cart-items">
-        <table>
+        <table class="cart_items_table">
             <thead>
                 <tr>
                     <th>Image</th>
@@ -50,39 +50,35 @@
                     <th>Quantity</th>
                 </tr>
             </thead>
-            <tbody class="bbb">
+            <tbody class="cart_items_list">
 
             </tbody>
         </table>
-<!--        <h4>Shopping Cart</h4>-->
-<!--        <div class="row">-->
-<!--            <div class="col-12 items_titles_content">-->
-<!--                <ul>-->
-<!--                    <li><span class="items_titles">Item</span></li>-->
-<!--                    <li><span class="items_titles">Price</span></li>-->
-<!--                    <li><span class="items_titles">Quantity</span></li>-->
-<!--                </ul>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="row item_container">-->
-<!--            <div class="col-4">-->
-<!--                <img src="/uploads/home_img.jpeg" width="200px" height="200px"><br>-->
-<!--                <span class="product_item_name">fh</span>-->
-<!--            </div>-->
-<!--            <div class="col-4">-->
-<!--                <span class="item_price">45</span>-->
-<!--            </div>-->
-<!--            <div class="col-4">-->
-<!--                <input class="cart-quantity-input" type="number" value="1">-->
-<!--                <button class="btn btn-danger btn_remove" type="button">Remove</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="row">-->
-<!--            <div class="col-4 subtotal">-->
-<!--                <span class="subtotal_name">Subtotal</span>-->
-<!--                <span class="subtotal_price">5263</span>-->
-<!--            </div>-->
-<!--        </div>-->
+        <div class="row">
+            <div class="col-4 subtotal">
+                <span class="subtotal_name">Subtotal</span>
+                <span class="subtotal_price">0</span><span> &#36</span>
+            </div>
+        </div>
+
     </div>
 
-<?php include ROOT . '/views/layouts/auth_footer.php'; ?>
+<script src="/template/js/jquery-3.4.1.min.js"></script>
+<script src="/template/js/scripts.js"></script>
+<script>
+
+    //.....................Showing and hiding navbar.........................
+
+    let navHome = document.querySelector(".nav_home");
+
+    window.addEventListener("scroll", function () {
+        if(window.pageYOffset > 100){
+            navHome.style.backgroundColor = "rgb(222, 198, 175, 0.8)";
+        }else{
+            navHome.style.backgroundColor = "rgb(222, 198, 175,0)";
+        }
+    });
+
+</script>
+</body>
+</html>

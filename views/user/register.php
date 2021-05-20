@@ -28,12 +28,11 @@
                         <?php
 
                             echo  '<ul>' .
-                                '<li><a class="nav-link active" aria-current="page" href="/" style="color: #1a1a1a">Home</a></li>' .
-                                '<li><a class="nav-link" href="/user/login" style="color: #1a1a1a">Sign in</a></li>' .
-                                '<li><a class="nav-link" href="/home/cart" style="color: #1a1a1a">
-                                <img src="/uploads/basket_icon.png" width="36px" height="36px"><span class=cart_item_value></span></a></li>' .
-                                '</ul>';
-
+                                    '<li><a class="nav-link active" aria-current="page" href="/" style="color: #1a1a1a">Home</a></li>' .
+                                    '<li><a class="nav-link" href="/user/login" style="color: #1a1a1a">Sign in</a></li>' .
+                                    '<li><a class="nav-link" href="/home/cart" style="color: #1a1a1a">
+                                    <img src="/uploads/basket_icon.png" width="36px" height="36px"><span class=cart_item_value></span></a></li>' .
+                                  '</ul>';
                         ?>
                     </div>
                 </nav>
