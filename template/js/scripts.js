@@ -12,8 +12,6 @@ window.addEventListener('load', function(event) {
 		'password': /^[a-zA-Z0-9@#$%^&*]{6,16}$/
 	}
 
-
-
 //......................... Cart ............................
 
 	let shopItemButton = document.querySelectorAll(".shop-item-button");
@@ -36,22 +34,67 @@ window.addEventListener('load', function(event) {
 	for(let i = 0; i < shopItemButton.length; i++){
 		let clickNum = 1;
 		shopItemButton[i].addEventListener("click", function(e){
+			let k = JSON.parse(localStorage.getItem("products") || "[]");
+			//console.log(k);
 			productObj[i] = {
 				name: homeProductName[i].innerHTML,
 				price:homeProductPrice[i].innerHTML,
 				image: homeProductImage[i].src,
 				quantity: clickNum
 			};
-			let obj = JSON.parse(localStorage.getItem("users") || "[]");
-			obj.push(productObj[i]);
-			localStorage.setItem("users", JSON.stringify(obj));
+			if(k.length === 0){
+				k.push(productObj[i]);
+				localStorage.setItem("products", JSON.stringify(k));
+
+				cartItemValue.innerHTML++;
+				let strCartItemValue = JSON.stringify(cartItemValue.innerHTML);
+				localStorage.setItem("key", strCartItemValue);
+				cartItemValue.innerHTML = JSON.parse(localStorage.getItem("key"));
+			}else{
+				if (k.find(element => element.name === productObj[i].name) != null) {
+					//alert("fdgdf");
+					let a = k.indexOf(k.find(element => element.name === productObj[i].name));
+					//console.log(a);
+					k[a].quantity++;
+					cartItemValue.innerHTML++;
+					let strCartItemValue = JSON.stringify(cartItemValue.innerHTML);
+					localStorage.setItem("key", strCartItemValue);
+					cartItemValue.innerHTML = JSON.parse(localStorage.getItem("key"));
+					localStorage.setItem("products", JSON.stringify(k));
+				}else{
+					//alert("ssss");
+					k.push(productObj[i]);
+					cartItemValue.innerHTML++;
+					let strCartItemValue = JSON.stringify(cartItemValue.innerHTML);
+					localStorage.setItem("key", strCartItemValue);
+					cartItemValue.innerHTML = JSON.parse(localStorage.getItem("key"));
+					localStorage.setItem("products", JSON.stringify(k));
+				}
+			}
 //.........................................................................
-			cartItemValue.innerHTML++;
-			let strCartItemValue = JSON.stringify(cartItemValue.innerHTML); // String representation of an object
-			localStorage.setItem("key", strCartItemValue);
-			cartItemValue.innerHTML = JSON.parse(localStorage.getItem("key"));
 		});
 	}
+
+
+// 	for(let i = 0; i < shopItemButton.length; i++){
+// 		let clickNum = 1;
+// 		shopItemButton[i].addEventListener("click", function(e){
+// 			productObj[i] = {
+// 				name: homeProductName[i].innerHTML,
+// 				price:homeProductPrice[i].innerHTML,
+// 				image: homeProductImage[i].src,
+// 				quantity: clickNum
+// 			};
+// 			let obj = JSON.parse(localStorage.getItem("products") || "[]");
+// 			obj.push(productObj[i]);
+// 			localStorage.setItem("products", JSON.stringify(obj));
+// //.........................................................................
+// 			cartItemValue.innerHTML++;
+// 			let strCartItemValue = JSON.stringify(cartItemValue.innerHTML); // String representation of an object
+// 			localStorage.setItem("key", strCartItemValue);
+// 			cartItemValue.innerHTML = JSON.parse(localStorage.getItem("key"));
+// 		});
+// 	}
 
 //..........................Sum of product prices...............................
 
@@ -67,8 +110,8 @@ window.addEventListener('load', function(event) {
 //..........................Insert product row..............................
 
 	if(typeof(cartItems) != "undefined" && cartItems != null) {
-		if (localStorage.getItem("users").length != null) {
-		let products = JSON.parse(localStorage.getItem("users") || "[]");
+		if (localStorage.getItem("products").length != null) {
+		let products = JSON.parse(localStorage.getItem("products") || "[]");
 		let itemContainer = [];
 			for (let j = 0; j < products.length; j++) {
 
@@ -89,23 +132,27 @@ window.addEventListener('load', function(event) {
 //............................Remove an element.............................
 
 	let btnRemove = document.querySelectorAll(".btn_remove");
-	let tr = document.querySelectorAll(".product_class");
+	// let tr = document.querySelectorAll(".product_class");
 	let products = [];
 
 	for(let i = 0; i < btnRemove.length; i++){
-		btnRemove[i].addEventListener("click", function (){
-			products = JSON.parse(localStorage.getItem("users") || "[]");
-			products.splice(i,1);
-			localStorage.setItem("users", JSON.stringify(products));
-			tr[i].remove();
-			subtotal.innerHTML = ProductSubtotal(products);
+		btnRemove[i].addEventListener("click", function (event){
 
-//...........................Update Cart Value.....................................
-
-			let cartUpdate = JSON.parse(localStorage.getItem("key"))-1;
-			let newValue = JSON.stringify(cartUpdate); // String representation of an object
-			localStorage.setItem("key", newValue);
-			cartItemValue.innerHTML = JSON.parse(localStorage.getItem("key"));
+			products = JSON.parse(localStorage.getItem("products") || "[]");
+			//console.log(products);
+			if(products.length > 0){
+				console.log(products.length);
+				let cartUpdate = JSON.parse(localStorage.getItem("key"))-products[i].quantity;
+				localStorage.setItem("key", JSON.stringify(cartUpdate));
+				if(typeof(cartItemValue) != 'undefined' && cartItemValue != null) {
+					cartItemValue.innerHTML = JSON.parse(localStorage.getItem("key"));
+				}
+				products.splice(i,1);
+				localStorage.setItem("products", JSON.stringify(products));
+				btnRemove[i].parentElement.parentElement.remove();
+				subtotal.innerHTML = ProductSubtotal(products);
+			}
+		window.location.reload();
 		});
 	}
 
@@ -114,14 +161,28 @@ window.addEventListener('load', function(event) {
 		let cartQuantityInput = document.querySelectorAll(".cart-quantity-input");
 		for (let i = 0; i < cartQuantityInput.length; i++) {
 			cartQuantityInput[i].addEventListener("change", function () {
-				products = JSON.parse(localStorage.getItem("users") || "[]");
+				//alert("fdg");
+				products = JSON.parse(localStorage.getItem("products") || "[]");
+
 				if(isNaN(cartQuantityInput[i].value) || cartQuantityInput[i].value<=0){
+
+					let cartUpdate = JSON.parse(localStorage.getItem("key"))-products[i].quantity;
 					cartQuantityInput[i].value = 1;
 					products[i].quantity = cartQuantityInput[i].value;
+					localStorage.setItem("products", JSON.stringify(products));
+					cartUpdate += parseInt(cartQuantityInput[i].value);
+					let newValue = JSON.stringify(cartUpdate); // String representation of an object
+					localStorage.setItem("key", newValue);
+					cartItemValue.innerHTML = JSON.parse(localStorage.getItem("key"));
 				}else{
+					let cartUpdate = JSON.parse(localStorage.getItem("key"))-products[i].quantity;
 					products[i].quantity = cartQuantityInput[i].value;
+					localStorage.setItem("products", JSON.stringify(products));
+					cartUpdate += parseInt(cartQuantityInput[i].value);
+					let newValue = JSON.stringify(cartUpdate); // String representation of an object
+					localStorage.setItem("key", newValue);
+					cartItemValue.innerHTML = JSON.parse(localStorage.getItem("key"));
 				}
-				localStorage.setItem("users", JSON.stringify(products));
 				subtotal.innerHTML = ProductSubtotal(products);
 			});
 		}
