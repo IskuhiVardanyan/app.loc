@@ -230,11 +230,16 @@ textarea{
   margin-right: 15px;
 }
 
+.table_tr{
+  height: 50px;
+}
+
 th, tr, td{
   text-align: center;
 }
 
-/*Style for description*/
+/*.....Style for description.....*/
+
 .description_btn{
   background-color: #0099ff;
   color: white;
@@ -620,6 +625,10 @@ a:link{
   color: #1b1e21;
 }
 
+.cart_items_table th{
+  width: 190px;
+}
+
 .cart_items_list td{
    width: 197px;
   border-bottom: 1px solid #5a6268;
@@ -644,6 +653,18 @@ a:link{
 .product_class td span{
   font-weight: bold;
   margin: 0 auto;
+}
+
+.buy_btn a{
+  background-color: #c82333;
+  width: 70px;
+  height: 30px;
+  margin-bottom: 4px;
+}
+
+.buy_btn span{
+  font-size: 12px;
+
 }
 
 

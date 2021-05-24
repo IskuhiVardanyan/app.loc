@@ -9,10 +9,16 @@
     <title>Home</title>
     <link href="/template/css/bootstrap.min.css" rel="stylesheet">
     <link href="/template/css/style.css" rel="stylesheet">
-
 </head>
 <body class="d-flex h-100 text-center text-white bg-white"
       style="background-image: url('/uploads/home_img.jpeg'); background-size: cover;">
+<?php
+    if(isset($_SESSION["id"])) {
+        echo '<span style = "display:none;" class="mysession">' . $_SESSION["id"] . '</span>';
+    }else{
+        echo '<span style = "display:none;" class="mysession"></span>';
+    }
+?>
 
 <div class="container">
     <header class="row">
@@ -26,13 +32,26 @@
                 <nav class="nav col-9">
                     <div class="nav_body nav-masthead">
                         <?php
-
+                        if(isset($_SESSION["id"])) {
                             echo  '<ul>' .
-                                '<li><a class="nav-link active" aria-current="page" href="/" style="color: #f2f2f2">Home</a></li>' .
-                                '<li><a class="nav-link" href="/user/register" style="color: #1a1a1a">Register</a></li>' .
-                                '<li><a class="nav-link" href="/user/login" style="color: #1a1a1a">Sign in</a></li>' .
+                                '<li><a class="nav-link" aria-current="page" href="/" style="color: #f2f2f2">Home</a></li>' .
+                                '<li><a class="nav-link" href="/admin" style="color: #1a1a1a">' . "Admin" . '</a></li>' .
+                                '<li><a class="nav-link" href="/user/logout" style="color: #1a1a1a">' . "Sign out" . '</a></li>' .
+                                '<li><a class="nav-link active" href="/home/cart" style="color: #1a1a1a">
+                                <img src="/uploads/basket_icon.png" width="36px" height="36px">
+                                <span class="cart_item_value"></span></a></li>' .
                                 '</ul>';
 
+                        }else{
+                            echo '<ul>' .
+                                '<li><a class="nav-link" aria-current="page" href="/" style="color: #f2f2f2">Home</a></li>' .
+                                '<li><a class="nav-link" href="/user/register" style="color: #1a1a1a">Register</a></li>' .
+                                '<li><a class="nav-link" href="/user/login" style="color: #1a1a1a">Sign in</a></li>' .
+                                '<li><a class="nav-link active" href="/home/cart" style="color: #1a1a1a">
+                                <img src="/uploads/basket_icon.png" width="36px" height="36px">
+                                <span class="cart_item_value"></span></a></li>' .
+                                '</ul>';
+                        }
                         ?>
                     </div>
                 </nav>
@@ -43,7 +62,7 @@
     <div class="col-9 cart-items">
         <table class="cart_items_table">
             <thead>
-                <tr>
+                <tr class="table_tr">
                     <th>Image</th>
                     <th>Name</th>
                     <th>Price</th>
@@ -70,12 +89,13 @@
     //.....................Showing and hiding navbar.........................
 
     let navHome = document.querySelector(".nav_home");
-
     window.addEventListener("scroll", function () {
         if(window.pageYOffset > 100){
             navHome.style.backgroundColor = "rgb(222, 198, 175, 0.8)";
+            navHome.style.boxShadow = "3px 3px 3px #4d4d4d";
         }else{
             navHome.style.backgroundColor = "rgb(222, 198, 175,0)";
+            navHome.style.boxShadow = "none";
         }
     });
 

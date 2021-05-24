@@ -1,5 +1,5 @@
 window.addEventListener('load', function(event) {
-
+	// alert(document.cookie.match(/PHPSESSID=[^;]+/));
 	let allRegisterInputs = document.querySelectorAll('.register_input');
 	let allLoginInputs = document.querySelectorAll('.login_input');
 	let register_form = document.querySelector('.register_form');
@@ -22,7 +22,10 @@ window.addEventListener('load', function(event) {
 	let cartItems = document.querySelector(".cart-items");
 	let cartItemsTable = document.querySelector(".cart_items_table");
 	let subtotal = document.querySelector(".subtotal_price");
+	let homeProductId = document.querySelectorAll(".home_product_id");
+
 	let productObj = [];
+
 //.....................Showing number of products in cart......................
 
 	if(typeof(cartItemValue) != 'undefined' && cartItemValue != null){
@@ -34,9 +37,13 @@ window.addEventListener('load', function(event) {
 	for(let i = 0; i < shopItemButton.length; i++){
 		let clickNum = 1;
 		shopItemButton[i].addEventListener("click", function(e){
+
+			let productId = homeProductId[i].innerHTML;
+
 			let k = JSON.parse(localStorage.getItem("products") || "[]");
-			//console.log(k);
+
 			productObj[i] = {
+				id: productId,
 				name: homeProductName[i].innerHTML,
 				price:homeProductPrice[i].innerHTML,
 				image: homeProductImage[i].src,
@@ -102,7 +109,7 @@ window.addEventListener('load', function(event) {
 		let sum = 0;
 		for (let i = 0; i < products.length; i++) {
 			sum += products[i].price * products[i].quantity;
-			console.log(products);
+			// console.log(products);
 		}
 		return sum;
 	}
@@ -110,6 +117,10 @@ window.addEventListener('load', function(event) {
 //..........................Insert product row..............................
 
 	if(typeof(cartItems) != "undefined" && cartItems != null) {
+		// for(let z = 0; z< homeProductId.length; z++){
+		// 	console.log(homeProductId[z].innerHTML +"fgdf");
+		// }
+
 		if (localStorage.getItem("products").length != null) {
 		let products = JSON.parse(localStorage.getItem("products") || "[]");
 		let itemContainer = [];
@@ -117,14 +128,27 @@ window.addEventListener('load', function(event) {
 
 				itemContainer[j] = document.createElement('tr');
 				itemContainer[j].classList.add("product_class");
-				itemContainer[j].innerHTML =
-					'<td><img src="' + products[j].image + '" width="200px" height="200px"><br></td>' +
-					'<td><span class="product_item_name">' + products[j].name + '</span></td>' +
-					'<td><span class="item_price">' + products[j].price + '</span><span> &#36</span></td>' +
-					'<td><input class="cart-quantity-input" type="number" value="' + products[j].quantity + '"></td>' +
-					'<td><button class="btn btn-danger btn_remove" type="button">Remove</button></td>';
-				cartItemsTable.appendChild(itemContainer[j]);
+				if(document.querySelector(".mysession").innerHTML.length > 0) {
+					itemContainer[j].innerHTML =
+						'<td><img src="' + products[j].image + '" width="200px" height="200px"><br></td>' +
+						'<td><span class="product_item_name">' + products[j].name + '</span></td>' +
+						'<td><span class="item_price">' + products[j].price + '</span><span> &#36</span></td>' +
+						'<td><input class="cart-quantity-input" type="number" value="' + products[j].quantity + '"></td>' +
+						'<td><button class="btn btn-danger btn_remove" type="button">Remove</button></td>' +
+						'<td class = "buy_btn"><a href="/cart/buy/' + products[j].id + '" >' +
+						'<span>Buy</span></a></td>';
+					cartItemsTable.appendChild(itemContainer[j]);
+				}else{
+					itemContainer[j].innerHTML =
+						'<td><img src="' + products[j].image + '" width="200px" height="200px"><br></td>' +
+						'<td><span class="product_item_name">' + products[j].name + '</span></td>' +
+						'<td><span class="item_price">' + products[j].price + '</span><span> &#36</span></td>' +
+						'<td><input class="cart-quantity-input" type="number" value="' + products[j].quantity + '"></td>' +
+						'<td><button class="btn btn-danger btn_remove" type="button">Remove</button></td>';
+					cartItemsTable.appendChild(itemContainer[j]);
+				}
 			}
+
 		subtotal.innerHTML = ProductSubtotal(products);
 		}
 	}

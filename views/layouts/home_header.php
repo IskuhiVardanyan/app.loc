@@ -31,6 +31,9 @@
                             '<li><a class="nav-link active" aria-current="page" href="/" style="color: #f2f2f2">' . "Home" . '</a></li>' .
                             '<li><a class="nav-link" href="/admin" style="color: #1a1a1a">' . "Admin" . '</a></li>' .
                             '<li><a class="nav-link" href="/user/logout" style="color: #1a1a1a">' . "Sign out" . '</a></li>' .
+                            '<li><a class="nav-link" href="/home/cart" style="color: #1a1a1a">
+                            <img src="/uploads/basket_icon.png" width="36px" height="36px">
+                            <span class="cart_item_value"></span></a></li>' .
                         '</ul>';
                         }else{
 
