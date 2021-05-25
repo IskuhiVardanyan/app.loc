@@ -115,6 +115,7 @@ echo "</div>";
                     '<td>' . $i . '</td>' .
                     '<td>' . $all_p['product_name'] . '</td>' .
                     '<td>' . $all_p['price'] . '</td>' .
+                    '<td>' . $all_p['product_count'] . '</td>' .
                     '<td>' . '<a href="/admin/description/' . $all_p['product_id'] . '" class="description_btn">' .
                     '<span>' . "Description" . '</span></a>' . '</td>' .
 

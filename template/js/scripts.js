@@ -23,8 +23,9 @@ window.addEventListener('load', function(event) {
 	let cartItemsTable = document.querySelector(".cart_items_table");
 	let subtotal = document.querySelector(".subtotal_price");
 	let homeProductId = document.querySelectorAll(".home_product_id");
+	let homeProductCount = document.querySelectorAll(".home_product_count");
 
-	let productObj = [];
+		let productObj = [];
 
 //.....................Showing number of products in cart......................
 
@@ -39,11 +40,13 @@ window.addEventListener('load', function(event) {
 		shopItemButton[i].addEventListener("click", function(e){
 
 			let productId = homeProductId[i].innerHTML;
+			let productCount = homeProductCount[i].innerHTML;
 
 			let k = JSON.parse(localStorage.getItem("products") || "[]");
 
 			productObj[i] = {
 				id: productId,
+				cnt: productCount,
 				name: homeProductName[i].innerHTML,
 				price:homeProductPrice[i].innerHTML,
 				image: homeProductImage[i].src,
@@ -117,9 +120,6 @@ window.addEventListener('load', function(event) {
 //..........................Insert product row..............................
 
 	if(typeof(cartItems) != "undefined" && cartItems != null) {
-		// for(let z = 0; z< homeProductId.length; z++){
-		// 	console.log(homeProductId[z].innerHTML +"fgdf");
-		// }
 
 		if (localStorage.getItem("products").length != null) {
 		let products = JSON.parse(localStorage.getItem("products") || "[]");
@@ -135,8 +135,8 @@ window.addEventListener('load', function(event) {
 						'<td><span class="item_price">' + products[j].price + '</span><span> &#36</span></td>' +
 						'<td><input class="cart-quantity-input" type="number" value="' + products[j].quantity + '"></td>' +
 						'<td><button class="btn btn-danger btn_remove" type="button">Remove</button></td>' +
-						'<td class = "buy_btn"><a href="/cart/buy/' + products[j].id + '" >' +
-						'<span>Buy</span></a></td>';
+						'<td><a data-count="' + products[j].cnt + '" type="button" class = "btn-danger buy_btn" href="/cart/buy/' + products[j].id + '" >' +
+						'<span >Buy</span></a></td>';
 					cartItemsTable.appendChild(itemContainer[j]);
 				}else{
 					itemContainer[j].innerHTML =
@@ -148,10 +148,28 @@ window.addEventListener('load', function(event) {
 					cartItemsTable.appendChild(itemContainer[j]);
 				}
 			}
-
 		subtotal.innerHTML = ProductSubtotal(products);
 		}
 	}
+
+//........................................................
+	let buyBtn = document.querySelectorAll(".buy_btn");
+	console.log(buyBtn);
+	let cartQuantityInput = document.querySelectorAll(".cart-quantity-input");
+	console.log(cartQuantityInput);
+	if(buyBtn.length >0){
+		for (let i = 0; i < buyBtn.length; i++){
+			buyBtn[i].addEventListener("click", function (event){
+				let dataCount = buyBtn[i].getAttribute("data-count");
+				let eachQuantityInput = cartQuantityInput[i].value;
+				let span = document.querySelector(".save_data");
+				dataCount -= eachQuantityInput;
+				span.innerHTML = dataCount;
+				event.preventDefault();
+			});
+		}
+	}
+
 
 //............................Remove an element.............................
 
@@ -211,7 +229,6 @@ window.addEventListener('load', function(event) {
 			});
 		}
 	}
-//...................................................................................
 
 
 //........................ Image Uploading ..........................
@@ -398,23 +415,33 @@ window.addEventListener('load', function(event) {
 	let productName = document.querySelector("#product_name");
 	let price = document.querySelector("#price");
 	let description = document.querySelector("#description");
+	let count = document.querySelector("#count");
 	let addForm = document.querySelector("#add_form");
 	let priceError = document.querySelector(".price_error");
+	let countError = document.querySelector(".count_error");
 
 	if(typeof(addForm) != 'undefined' && addForm != null) {
 		let isErr = false;
 		addForm.addEventListener('submit', function (event) {
 			let isErr = false;
 			let patt =  /^[0-9]{1,16}$/;
+			let countPatt = /^[0-9]{1,16}$/;
 
-			if (productName.value == "" || (price.value == "" || description.value == "")) {
+			if (productName.value == "" || (price.value == "" || description.value == "") || count.value == "") {
 
 				let span = document.querySelector(".add_error");
 				span.innerHTML = "* Please fill in all required fields";
 				priceError.style.display = "none";
 				isErr = true;
 				event.preventDefault();
-
+				if(!countPatt.test(count.value)){
+					countError.style.display = "block";
+					isErr = true;
+					event.preventDefault();
+				}else{
+					countError.style.display = "none";
+					event.stopPropagation();
+				}
 				if (!patt.test(price.value)){
 					//alert(span);
 					priceError.style.display = "block";
@@ -430,6 +457,14 @@ window.addEventListener('load', function(event) {
 					priceError.style.display = "block";
 					 isErr = true;
 					event.preventDefault();
+				}
+				if(!countPatt.test(count.value)){
+					countError.style.display = "block";
+					isErr = true;
+					event.preventDefault();
+				}else{
+					countError.style.display = "none";
+					event.stopPropagation();
 				}
 			}
 		});
@@ -458,9 +493,11 @@ window.addEventListener('load', function(event) {
 
 	let productNameEdit = document.querySelector("#product_name_edit");
 	let priceEdit = document.querySelector("#price_edit");
+	let countEdit = document.querySelector("#count_edit");
 	let descriptionEdit = document.querySelector("#description_edit");
 	let editForm = document.querySelector("#edit_form");
 	let priceErrorEdit = document.querySelector(".price_error_edit");
+	let countErrorEdit = document.querySelector(".count_error_edit");
 
 	if(typeof(editForm) != 'undefined' && editForm != null) {
 		let isErr = false;
@@ -469,7 +506,7 @@ window.addEventListener('load', function(event) {
 			let isErr = false;
 			let patt =  /^[0-9]{1,16}$/;
 
-			if (productNameEdit.value == "" || (priceEdit.value == "" || descriptionEdit.value == "")) {
+			if (productNameEdit.value == "" || (priceEdit.value == "" || descriptionEdit.value == "") || countEdit.value == "") {
 
 				let span = document.querySelector(".edit_error");
 				span.innerHTML = "* Please fill in all required fields";
@@ -483,6 +520,17 @@ window.addEventListener('load', function(event) {
 					isErr = true;
 					event.preventDefault();
 				}
+
+				if (!patt.test(countEdit.value)){
+					//alert(span);
+					countErrorEdit.style.display = "block";
+					isErr = true;
+					event.preventDefault();
+				}else{
+					countErrorEdit.style.display = "none";
+					event.stopPropagation();
+				}
+
 			}else {
 				let span = document.querySelector(".edit_error");
 				span.innerHTML = "";
@@ -493,12 +541,18 @@ window.addEventListener('load', function(event) {
 					isErr = true;
 					event.preventDefault();
 				}
+				if (!patt.test(countEdit.value)){
+					//alert(span);
+					countErrorEdit.style.display = "block";
+					isErr = true;
+					event.preventDefault();
+				}else{
+					countErrorEdit.style.display = "none";
+					event.stopPropagation();
+				}
 			}
 		});
 	}
-
-
-
 //.......................................................
 });
 

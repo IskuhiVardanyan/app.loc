@@ -36,7 +36,15 @@
                          <input type = "text" id = "price" name = "price" style = "margin-left: 69px;" value="<?php if (isset($_POST['submit'])) {
                              echo $_POST["price"];
                          }?>"><br><br>
+
                         <span class="price_error">* Only numbers</span><br><br>
+
+                        <label for="price" >* Count:</label >
+                        <input type = "text" id = "count" name = "product_count" style = "margin-left: 69px;" value="<?php if (isset($_POST['submit'])) {
+                            echo $_POST["product_count"];
+                        }?>"><br><br>
+
+                        <span class="count_error">* Only numbers</span><br><br>
 
                         <label for="description"> * Description</label><br>
                         <textarea rows = "5" name = "text" id="description"><?php if (isset($_POST['submit'])) {
@@ -56,6 +64,7 @@
                             $productName = $_POST['product_name'];
 //            die($productName);
                             $price = $_POST['price'];
+                            $product_count = $_POST['product_count'];
                             $description = $_POST['text'];
                             $created_by = $_SESSION["id"];
 //            die($description);
@@ -77,7 +86,7 @@
                                         $fileDestination = 'uploads/' . $fileNewName;
                                         move_uploaded_file($fileTmpName, $fileDestination);
 
-                                        Products::addProduct( $productName, $price, $description, $image, $created_by);
+                                        Products::addProduct( $productName, $price, $description, $image, $created_by, $product_count);
                                         header("Location: /admin");
 
                                     } else {

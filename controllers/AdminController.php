@@ -18,7 +18,6 @@ class AdminController
 
     public function actionAdd(): bool
     {
-
             require_once(ROOT . '/views/admin/add_new_products.php');
             return true;
     }
@@ -32,6 +31,7 @@ class AdminController
             foreach($all_products as $parr) {
                 $productName = $_POST['product_name'];
                 $price = $_POST['price'];
+                $product_count = $_POST['product_count'];
                 $description = $_POST['text'];
 
                 if (is_uploaded_file($_FILES['inpFile']['tmp_name'])) {
@@ -73,14 +73,15 @@ class AdminController
                             '<button id="img_button">OK</button>' .
                             "</div>";
                     }
-                    Products::editProductByAdmin($id, $productName, $price, $description);
+                    Products::editProductByAdmin($id, $productName, $price, $description, $product_count);
                     header("Location: /admin");
                 }else{
                     $productName = $_POST['product_name'];
                     $price = $_POST['price'];
+                    $product_count = $_POST['product_count'];
                     $description = $_POST['text'];
 
-                    Products::editProductByAdmin($id, $productName, $price, $description);
+                    Products::editProductByAdmin($id, $productName, $price, $description, $product_count);
                     header("Location: /admin");
                 }
 

@@ -2,12 +2,12 @@
 
 class Products{
 
-    public static function addProduct($productName, $price, $description, $image, $created_by)
+    public static function addProduct($productName, $price, $description, $image, $created_by, $product_count)
     {
         $db = Db::getConnection();
 
-        $sql = "INSERT INTO `products` (`product_name`, `price`, `description`, `image`, `created_by`)
-            VALUES (:productName, :price, :description, :image, :created_by)";
+        $sql = "INSERT INTO `products` (`product_name`, `price`, `description`, `image`, `created_by`, `product_count`)
+            VALUES (:productName, :price, :description, :image, :created_by, :product_count)";
 //die($sql);
         $result = $db->prepare($sql);
         $result->bindParam(':productName', $productName);
@@ -15,6 +15,7 @@ class Products{
         $result->bindParam(':description', $description);
         $result->bindParam(':image', $image);
         $result->bindParam(':created_by', $created_by);
+        $result->bindParam(':product_count', $product_count);
         return $result->execute();
     }
 
@@ -66,11 +67,12 @@ class Products{
         return $result_delete->execute();
     }
 
-    public static function editProductByAdmin($id, $productName, $price, $description)
+    public static function editProductByAdmin($id, $productName, $price, $description, $product_count)
     {
         $db = Db::getConnection();
         $sql = 'UPDATE `products` SET `product_name` =' . "'" . $productName . "'" . ', `price` ='
-            . "'" . $price . "'" . ', `description` =' . "'" . $description . "'"  .  " " . 'WHERE' . ' `product_id`=' . $id;
+            . "'" . $price . "'" . ', `description` =' . "'" . $description . "'"  . ', `product_count` =' . "'" . $product_count . "'"  .
+            " " . 'WHERE' . ' `product_id`=' . $id;
 //   die($sql);
         $result = $db->prepare($sql);
 //      $result->bindParam(':status', $status);
@@ -81,6 +83,16 @@ class Products{
     {
         $db = Db::getConnection();
         $sql = 'UPDATE `products` SET `image` = :image WHERE `product_id` = ' . $id;
+//		die($sql);
+        $result = $db->prepare($sql);
+        $result->bindParam(':image', $image, PDO::PARAM_STR);
+        return $result->execute();
+    }
+
+    public static function updateProductCount($id, $productCount)
+    {
+        $db = Db::getConnection();
+        $sql = 'UPDATE `products` SET `product_count` = :product_count WHERE `product_id` = ' . $id;
 //		die($sql);
         $result = $db->prepare($sql);
         $result->bindParam(':image', $image, PDO::PARAM_STR);

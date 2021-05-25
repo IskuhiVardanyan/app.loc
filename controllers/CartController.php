@@ -4,9 +4,10 @@ class CartController
 {
     public function actionBuy($id): bool
     {
-        $arr = Products::getProductsById($id);
+          $productCount =
+//        Products::updateProductCount($id, $productCount);
 //        Products::deleteProduct($id);
-        header("Location: /home/cart");
+          header("Location: /home/cart");
     }
 }
 

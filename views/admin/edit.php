@@ -31,6 +31,11 @@
                                   $products['price'] . '"><br><br>' .
                                   '<span class="price_error_edit">* Only numbers</span><br><br>' .
 
+                                  '<label for="product_count">Count:</label>' .
+                                  '<input type = "text" id = "count_edit" name = "product_count" style = "margin-left: 69px;" value="' .
+                                  $products['product_count'] . '"><br><br>' .
+                                  '<span class="count_error_edit">* Only numbers</span><br><br>' .
+
                                   '<label for="description">Description</label><br>' .
                                   '<textarea rows = "5" cols = "5" name = "text" id="description_edit">' . $products['description'] . '</textarea>' .
                                   '<br><br>' .

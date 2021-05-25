@@ -453,12 +453,22 @@ nav a{
   color: red;
 }
 
+.count_error{
+  display: none;
+  color: red;
+}
+
 .edit_error{
   color: red;
   font-size: 15px;
 }
 
 .price_error_edit{
+  display: none;
+  color: red;
+}
+
+.count_error_edit{
   display: none;
   color: red;
 }
@@ -604,6 +614,7 @@ a:link{
   height: 30px;
   font-size: 12px;
   margin-bottom: 4px;
+  font-weight: bold;
 }
 
 .subtotal{
@@ -655,16 +666,16 @@ a:link{
   margin: 0 auto;
 }
 
-.buy_btn a{
-  background-color: #c82333;
+.buy_btn {
   width: 70px;
   height: 30px;
   margin-bottom: 4px;
+  border-radius: 3px;
 }
 
 .buy_btn span{
   font-size: 12px;
-
+  font-weight: normal;
 }
 
 
