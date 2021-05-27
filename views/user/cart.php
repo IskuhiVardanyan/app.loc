@@ -19,6 +19,7 @@
         echo '<span style = "display:none;" class="mysession"></span>';
     }
 ?>
+<input class="save_data" name="data" style="display: none">
 
 <div class="container">
     <header class="row">
@@ -98,6 +99,19 @@
             navHome.style.boxShadow = "none";
         }
     });
+
+    // function loadDoc() {
+    //     let xhttp = new XMLHttpRequest();
+    //     xhttp.onreadystatechange = function() {
+    //         if (this.readyState == 4 && this.status == 200) {
+    //             let input = document.querySelector(".save_data");
+    //             document.body.innerHTML = this.responseText;
+    //            // console.log(document.body.innerHTML);
+    //         }
+    //     };
+    //     xhttp.open("POST", "../controllers/CartController.php", true);
+    //     xhttp.send();
+    // }
 
 </script>
 </body>

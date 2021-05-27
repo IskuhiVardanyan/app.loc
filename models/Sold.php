@@ -1,9 +1,9 @@
 <?php
 
 
-class User
+class Sold
 {
-    public static function register($firstName, $lastName, $email, $password)
+    public static function sold($firstName, $lastName, $email, $password)
     {
         $db = Db::getConnection();
         $sql = 'INSERT INTO sold (first_name, last_name, email, password) '

@@ -95,7 +95,7 @@ class Products{
         $sql = 'UPDATE `products` SET `product_count` = :product_count WHERE `product_id` = ' . $id;
 //		die($sql);
         $result = $db->prepare($sql);
-        $result->bindParam(':image', $image, PDO::PARAM_STR);
+        $result->bindParam(':product_count', $productCount, PDO::PARAM_STR);
         return $result->execute();
     }
 

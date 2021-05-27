@@ -24,7 +24,8 @@ window.addEventListener('load', function(event) {
 	let subtotal = document.querySelector(".subtotal_price");
 	let homeProductId = document.querySelectorAll(".home_product_id");
 	let homeProductCount = document.querySelectorAll(".home_product_count");
-
+	let cartItemList = document.querySelector(".cart_items_list");
+	let btnRemove = document.querySelectorAll(".btn_remove");
 		let productObj = [];
 
 //.....................Showing number of products in cart......................
@@ -61,9 +62,9 @@ window.addEventListener('load', function(event) {
 				localStorage.setItem("key", strCartItemValue);
 				cartItemValue.innerHTML = JSON.parse(localStorage.getItem("key"));
 			}else{
-				if (k.find(element => element.name === productObj[i].name) != null) {
+				if (k.find(element => element.id === productObj[i].id) != null) {
 					//alert("fdgdf");
-					let a = k.indexOf(k.find(element => element.name === productObj[i].name));
+					let a = k.indexOf(k.find(element => element.id === productObj[i].id));
 					//console.log(a);
 					k[a].quantity++;
 					cartItemValue.innerHTML++;
@@ -121,22 +122,31 @@ window.addEventListener('load', function(event) {
 
 	if(typeof(cartItems) != "undefined" && cartItems != null) {
 
+
 		if (localStorage.getItem("products").length != null) {
 		let products = JSON.parse(localStorage.getItem("products") || "[]");
 		let itemContainer = [];
 			for (let j = 0; j < products.length; j++) {
 
 				itemContainer[j] = document.createElement('tr');
+				cartItemList.appendChild(itemContainer[j]);
 				itemContainer[j].classList.add("product_class");
 				if(document.querySelector(".mysession").innerHTML.length > 0) {
+
 					itemContainer[j].innerHTML =
 						'<td><img src="' + products[j].image + '" width="200px" height="200px"><br></td>' +
 						'<td><span class="product_item_name">' + products[j].name + '</span></td>' +
 						'<td><span class="item_price">' + products[j].price + '</span><span> &#36</span></td>' +
 						'<td><input class="cart-quantity-input" type="number" value="' + products[j].quantity + '"></td>' +
 						'<td><button class="btn btn-danger btn_remove" type="button">Remove</button></td>' +
-						'<td><a data-count="' + products[j].cnt + '" type="button" class = "btn-danger buy_btn" href="/cart/buy/' + products[j].id + '" >' +
-						'<span >Buy</span></a></td>';
+						'<td>' +
+							'<form method="post" action="/cart/buy" class="myform">' +
+								'<input style="display: none" name = "id" value = "' + products[j].id + '">' +
+								'<input name="cnt" class="inputProductCount" value="' + (products[j].cnt-products[j].quantity) +'">' +
+								'<input data-count="" ' +'type="submit" name="buy" value = "Buy">' +
+							'</form>' +
+						'</td>';
+
 					cartItemsTable.appendChild(itemContainer[j]);
 				}else{
 					itemContainer[j].innerHTML =
@@ -153,19 +163,24 @@ window.addEventListener('load', function(event) {
 	}
 
 //........................................................
+
+
+
 	let buyBtn = document.querySelectorAll(".buy_btn");
-	console.log(buyBtn);
+	let myForm = document.querySelectorAll(".myform");
+	//console.log(buyBtn);
 	let cartQuantityInput = document.querySelectorAll(".cart-quantity-input");
-	console.log(cartQuantityInput);
-	if(buyBtn.length >0){
-		for (let i = 0; i < buyBtn.length; i++){
-			buyBtn[i].addEventListener("click", function (event){
-				let dataCount = buyBtn[i].getAttribute("data-count");
-				let eachQuantityInput = cartQuantityInput[i].value;
-				let span = document.querySelector(".save_data");
-				dataCount -= eachQuantityInput;
-				span.innerHTML = dataCount;
-				event.preventDefault();
+	let inputProductCount = document.querySelectorAll(".inputProductCount");
+
+	//console.log(cartQuantityInput);
+
+	if(myForm.length >0){
+		for (let i = 0; i < myForm.length; i++){
+			let dataCount = buyBtn[i].getAttribute("data-count");
+			dataCount = products[i].cnt;
+			myForm[i].addEventListener("submit", function (event){
+				dataCount -= cartQuantityInput[i].value;
+			//event.preventDefault();
 			});
 		}
 	}
@@ -173,7 +188,7 @@ window.addEventListener('load', function(event) {
 
 //............................Remove an element.............................
 
-	let btnRemove = document.querySelectorAll(".btn_remove");
+
 	// let tr = document.querySelectorAll(".product_class");
 	let products = [];
 

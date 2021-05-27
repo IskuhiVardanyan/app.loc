@@ -37,6 +37,7 @@
                         '<th scope="col">Name</th>' .
                         '<th scope="col">Price</th>' .
                         '<th scope="col">Description</th>' .
+                        '<th scope="col"></th>' .
                         '<th scope="col" style="width:40%">' . "Image" . '</th>' .
                     '</tr>' .
                 '</thead>' .
@@ -49,7 +50,8 @@
                     '<td>' . '<span class="home_product_count">'. $all_p['product_count'] . '</span>' . '</td>' .
                     '<td>' . '<a href="/home/more/' . $all_p['product_id'] . '" class="description_btn">' .
                     '<span>' . "Description" . '</span></a>' .
-                    '<button class="shop-item-button" type="button">Add to cart</button>' . '</td>' .
+                     '</td>' .
+                    '<td>' . '<button class="shop-item-button" type="button">Add to cart</button>' . '</td>' .
                     '<td>' . "<img class='home_product_image' src=" . '"uploads/' . $all_p['image'] . '"' .
                     ' height="250px" width="250px"' . " " . 'style="object-fit: cover"' . ">" . '</td>';
             }

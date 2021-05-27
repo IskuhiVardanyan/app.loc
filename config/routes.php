@@ -18,7 +18,7 @@ return array(
     '/more/([0-9]+)' => 'home/more/$1',
 
 	// Cart controle route
-    'cart/buy/([0-9]+)' => 'cart/buy/$1',
+    'cart/buy' => 'cart/buy',
 
 
 	// Page Error control route
