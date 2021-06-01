@@ -3,20 +3,18 @@
 
 class CartController
 {
-    public function actionBuy(): bool
+    public function actionBuy($id): bool
     {
-       // die("dfg");
+        $buyProduct = Products::getProductsById($id);
         if(isset($_POST['buy'])){
-//die($_POST['id']);
-            $productId = $_POST['id'];
-            $productCount = $_POST['cnt'];
+            $productId = $_POST['sold_product_id'];
+            $productQuantity = $_POST['product_quantity'];
+            $soldProductQuantity = $_POST['sold_product_quantity'];
+            $productCount = $productQuantity - $soldProductQuantity;
             Products::updateProductCount($productId, $productCount);
             header("Location: /home/cart");
         }
-          //die($productCount);
-          //Products::updateProductCount($id, $productCount);
-//        Products::deleteProduct($id);
-        require_once(ROOT . '/views/user/cart.php');
+        require_once(ROOT . '/views/user/buy.php');
         return true;
     }
 }

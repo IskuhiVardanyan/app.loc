@@ -13,7 +13,13 @@
 </head>
 <body class="d-flex h-100 text-center text-white bg-white"
       style="background-image: url('/uploads/home_img.jpeg'); background-size: cover;">
-
+<?php
+    if(isset($_SESSION["id"])){
+        echo '<span class="session_num" style="display: none">' . $_SESSION["id"] . '</span>';
+    }else{
+        echo '<span class="session_num" style="display: none"></span>';
+    }
+?>
 <div class="container">
     <header class="row">
         <div class="col-12">

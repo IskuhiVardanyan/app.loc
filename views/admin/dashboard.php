@@ -101,6 +101,7 @@ echo "</div>";
                 '<th scope="col">&#8470;</th>' .
                 '<th scope="col">Name</th>' .
                 '<th scope="col">Price</th>' .
+                '<th scope="col">The rest</th>' .
                 '<th scope="col">Description</th>' .
                 '<th scope="col">Image</th>' .
                 '<th scope="col">Edit</th>' .

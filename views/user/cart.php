@@ -42,7 +42,6 @@
                                 <img src="/uploads/basket_icon.png" width="36px" height="36px">
                                 <span class="cart_item_value"></span></a></li>' .
                                 '</ul>';
-
                         }else{
                             echo '<ul>' .
                                 '<li><a class="nav-link" aria-current="page" href="/" style="color: #f2f2f2">Home</a></li>' .
@@ -62,7 +61,7 @@
 
     <div class="col-9 cart-items">
         <table class="cart_items_table">
-            <thead>
+            <thead class="cart_items_thead">
                 <tr class="table_tr">
                     <th>Image</th>
                     <th>Name</th>
@@ -99,19 +98,6 @@
             navHome.style.boxShadow = "none";
         }
     });
-
-    // function loadDoc() {
-    //     let xhttp = new XMLHttpRequest();
-    //     xhttp.onreadystatechange = function() {
-    //         if (this.readyState == 4 && this.status == 200) {
-    //             let input = document.querySelector(".save_data");
-    //             document.body.innerHTML = this.responseText;
-    //            // console.log(document.body.innerHTML);
-    //         }
-    //     };
-    //     xhttp.open("POST", "../controllers/CartController.php", true);
-    //     xhttp.send();
-    // }
 
 </script>
 </body>
