@@ -21,8 +21,8 @@
                 echo '<tr>' .
                     '<td style="display: none">' . '<span class="home_product_id">'. $all_p['product_id'] . '</span>' . '</td>' .
                     '<td>' . '<span class="home_product_name">'. $all_p['product_name'] . '</span>' . '</td>' .
-                    '<td style="display: none">' . '<span class="home_product_price">'. $all_p['price'] . '</span>' . '</td>' .
-                    '<td>' . '<span class="home_product_count">'. $all_p['product_count'] . '</span>' . '</td>' .
+                    '<td>' . '<span>&#36 </span><span class="home_product_price">'. $all_p['price'] . '</span>' . '</td>' .
+                    '<td style="display: none">' . '<span class="home_product_count">'. $all_p['product_count'] . '</span>' . '</td>' .
                     '<td>' . '<a href="/home/more/' . $all_p['product_id'] . '" class="description_btn">' .
                     '<span>' . "Description" . '</span></a>' .
                      '</td>' .

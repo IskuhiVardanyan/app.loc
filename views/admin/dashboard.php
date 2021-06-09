@@ -115,7 +115,7 @@ echo "</div>";
                 echo '<tr>' .
                     '<td>' . $i . '</td>' .
                     '<td>' . $all_p['product_name'] . '</td>' .
-                    '<td>' . $all_p['price'] . '</td>' .
+                    '<td><span>&#36 </span>' . $all_p['price'] . '</td>' .
                     '<td>' . $all_p['product_count'] . '</td>' .
                     '<td>' . '<a href="/admin/description/' . $all_p['product_id'] . '" class="description_btn">' .
                     '<span>' . "Description" . '</span></a>' . '</td>' .
@@ -127,10 +127,8 @@ echo "</div>";
                     '<span>' . "Edit" . '</span></a>' . '</td>' .
 
                     "<td>" .
-
                         '<button class="delete_btn" type="button" data-id="' . $all_p['product_id'] .
                         '">Delete</button>' .
-
                     "</td>" .
 
                     '</tr>';

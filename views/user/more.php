@@ -24,7 +24,7 @@
                         '" readonly><br><br>' .
 
                         '<label for="price">' . "Price:" . "</label>" .
-                        '<input type = "text" id = "price" name = "price" value="' . $products['price'] .
+                        '<input type = "text" id = "price" name = "price" value="' . '&#36' . ' ' . $products['price'] .
                         '" style = "margin-left: 69px;" readonly><br><br>' .
 
                         '<label for="description">' . "Description" . '</label><br>' .
@@ -35,7 +35,7 @@
                     '</div>' .
 
                     "<div class='col-6'>" .
-                        "<img src=" . '"/uploads/' . $products['image'] . '"' . " " . 'width="400" height="400"' . " style='object-fit:cover'>" .
+                        "<img class='desc_img' src=" . '"/uploads/' . $products['image'] . '"' . " " . 'width="400" height="400"' . " style='object-fit:cover'>" .
                     "</div>" .
                 "</div>" .
             "</div>";

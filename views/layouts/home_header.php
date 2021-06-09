@@ -15,9 +15,9 @@
       style="background-image: url('/uploads/home_img.jpeg'); background-size: cover;">
 <?php
     if(isset($_SESSION["id"])){
-        echo '<span class="session_num" style="display: none">' . $_SESSION["id"] . '</span>';
+        echo '<input style="display:none" class="session_num" value="' . $_SESSION["id"] .'">';
     }else{
-        echo '<span class="session_num" style="display: none"></span>';
+        echo '<input style="display:none" class="session_num" value="">';
     }
 ?>
 <div class="container">

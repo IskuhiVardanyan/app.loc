@@ -13,12 +13,13 @@
 <body class="d-flex h-100 text-center text-white bg-white"
       style="background-image: url('/uploads/home_img.jpeg'); background-size: cover;">
 <?php
-    if(isset($_SESSION["id"])) {
-        echo '<span style = "display:none;" class="mysession">' . $_SESSION["id"] . '</span>';
-    }else{
-        echo '<span style = "display:none;" class="mysession"></span>';
-    }
+if(isset($_SESSION["id"])){
+    echo '<input style="display:none" class="session_num" value="' . $_SESSION["id"] .'">';
+}else{
+    echo '<input style="display:none" class="session_num" value="">';
+}
 ?>
+
 <input class="save_data" name="data" style="display: none">
 
 <div class="container">
@@ -76,7 +77,7 @@
         <div class="row">
             <div class="col-4 subtotal">
                 <span class="subtotal_name">Subtotal</span>
-                <span class="subtotal_price">0</span><span> &#36</span>
+                <span>&#36 </span><span class="subtotal_price">0</span>
             </div>
         </div>
 

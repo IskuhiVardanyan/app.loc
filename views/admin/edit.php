@@ -47,7 +47,7 @@
 
                               if($products['image'] != NULL){
                                  echo "<img src=" . '"/uploads/' . $products['image'] . '"' . " " .
-                                     'class="image-preview__image"' . 'style="width:200px; height:200px;" ' .
+                                     'class="image-preview__image"' . ' style="width:200px; height:200px;" ' .
                                      'id="edit_image"' . ">" .
                                   '<span class="image-preview__default-text">Image Preview</span>';
                               }else{

@@ -52,9 +52,7 @@ class AdminController
                                 $fileDestination = 'uploads/' . $fileNewName;
                                 move_uploaded_file($fileTmpName, $fileDestination);
                                 Products::updateImage($parr['product_id'], $fileNewName);
-
                                 header("Location: /admin");
-
                             } else {
                                 echo "<div class='img_message' style='width: 200px; background-color: #adb5bd;'>" .
                                     "Your file is too big" .
