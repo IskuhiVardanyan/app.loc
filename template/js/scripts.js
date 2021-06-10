@@ -130,7 +130,7 @@ window.addEventListener('load', function(event) {
 		return sum;
 	}
 
-//..........................Insert product row..............................
+//.......................... Insert product row ..............................
 
 	if(typeof(cartItems) != "undefined" && cartItems != null) {
 
@@ -168,7 +168,6 @@ window.addEventListener('load', function(event) {
 				}
 				subtotal.innerHTML = sum;
 			}
-
 		}
 	}
 

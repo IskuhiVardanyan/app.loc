@@ -20,6 +20,9 @@ if(isset($_SESSION["id"])){
     echo '<input style="display:none" class="session_num" value="">';
 }
 ?>
+<div class="buy_modal">
+
+</div>
 
 <div class="container">
     <header class="row">
@@ -57,7 +60,7 @@ if(isset($_SESSION["id"])){
                             '<label for="product_name">Product name:</label>' .
                             '<input type = "text" id = "product_name" name = "product_name" value="' . $buy["product_name"] . '" readonly><br><br>' .
 
-                            '<label for="product_price">Product price:</label>' .
+                            '<label for="product_price" style="margin-right: 45px">*Latest price:</label>' .
                             '<input type = "text" id = "product_price" name = "product_price" value="' . '&#36' . ' ' . $buy["price"] . '" readonly><br><br>' .
 
                             '<label for="sold_product_quantity">Quantity:</label>' .
@@ -101,39 +104,72 @@ if(isset($_SESSION["id"])){
             let bsId = document.querySelector(".session_num");
             let soldProductQuantity = document.querySelector('#sold_product_quantity');
             let soldProductId = document.querySelector('#sold_product_id');
+            let productQuantity = document.querySelector('#product_quantity').value;
             let buyBtn = document.querySelector('#buy_btn');
+
 
             for(let i = 0; i < products.length; i++){
                 if(products[i].id === soldProductId.value && products[i].sesId === bsId.value){
                     soldProductQuantity.value = products[i].quantity;
                 }
             }
-            buyBtn.addEventListener('click', function (){
-                for(let i = 0; i < products.length; i++) {
-                    if (products[i].id === soldProductId.value && products[i].sesId === bsId.value) {
-                        let cartItemValue = document.querySelector(".cart_item_value");
-                        for(let n = 0; n < newKey.length; n++){
-                            if(newKey[n].sesId === bsId.value){
-                                let cartUpdate = newKey[n].eachValue - products[i].quantity;
-                                if(cartUpdate === 0){
-                                    newKey.splice(n, 1);
-                                }else{
-                                    newKey[n].eachValue = cartUpdate;
+            buyBtn.addEventListener('click', function (event){
+                if( productQuantity > 0){
+                    for(let i = 0; i < products.length; i++) {
+                        if (products[i].id === soldProductId.value && products[i].sesId === bsId.value
+                            && productQuantity > products[i].quantity) {
+                            let cartItemValue = document.querySelector(".cart_item_value");
+                            for(let n = 0; n < newKey.length; n++){
+                                if(newKey[n].sesId === bsId.value){
+                                    let cartUpdate = newKey[n].eachValue - products[i].quantity;
+                                    if(cartUpdate === 0){
+                                        newKey.splice(n, 1);
+                                    }else{
+                                        newKey[n].eachValue = cartUpdate;
+                                    }
+                                    localStorage.setItem("key", JSON.stringify(newKey));
+                                    if (typeof (cartItemValue) != 'undefined' && cartItemValue != null) {
+                                        cartItemValue.innerHTML = cartUpdate;
+                                    }
+                                    products.splice(i, 1);
+                                    localStorage.setItem("products", JSON.stringify(products));
+                                    let tr = document.querySelectorAll(".product_class");
+                                    if(typeof(tr) != "undefined" && tr != null) {
+                                        tr[i].remove();
+                                        subtotal.innerHTML = ProductSubtotal(products, bsId);
+                                    }
                                 }
-                                localStorage.setItem("key", JSON.stringify(newKey));
-                                if (typeof (cartItemValue) != 'undefined' && cartItemValue != null) {
-                                    cartItemValue.innerHTML = cartUpdate;
-                                }
-                                products.splice(i, 1);
-                                localStorage.setItem("products", JSON.stringify(products));
-                                let tr = document.querySelectorAll(".product_class");
-                                if(typeof(tr) != "undefined" && tr != null) {
-                                    tr[i].remove();
-                                    subtotal.innerHTML = ProductSubtotal(products, bsId);
+                            }
+                        }else if(products[i].id === soldProductId.value && products[i].sesId === bsId.value
+                            && productQuantity < products[i].quantity){
+                            alert("The rest quantity is less than you are trying to buy. The number of sold product is " +
+                                + productQuantity);
+                            let cartItemValue = document.querySelector(".cart_item_value");
+                            for(let n = 0; n < newKey.length; n++){
+                                if(newKey[n].sesId === bsId.value){
+                                    let cartUpdate = newKey[n].eachValue - products[i].quantity;
+                                    if(cartUpdate === 0){
+                                        newKey.splice(n, 1);
+                                    }else{
+                                        newKey[n].eachValue = cartUpdate;
+                                    }
+                                    localStorage.setItem("key", JSON.stringify(newKey));
+                                    if (typeof (cartItemValue) != 'undefined' && cartItemValue != null) {
+                                        cartItemValue.innerHTML = cartUpdate;
+                                    }
+                                    products.splice(i, 1);
+                                    localStorage.setItem("products", JSON.stringify(products));
+                                    let tr = document.querySelectorAll(".product_class");
+                                    if(typeof(tr) != "undefined" && tr != null) {
+                                        tr[i].remove();
+                                        subtotal.innerHTML = ProductSubtotal(products, bsId);
+                                    }
                                 }
                             }
                         }
                     }
+                }else{
+                    event.preventDefault()
                 }
             });
         }
